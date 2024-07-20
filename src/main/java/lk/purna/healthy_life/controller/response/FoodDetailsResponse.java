@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class FoodDetailsResponse {
 
+    private Long id;
     private String name;
     private Float calories;
     private Float carbs;
