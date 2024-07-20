@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class FoodDetailsServiceImpl implements FoodDetailsService {
@@ -25,5 +28,19 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
         foodDetailsRepository.save(foodDetails);
 
         return modelMapper.map(foodDetails,FoodDetailsResponse.class);
+    }
+
+    @Override
+    public List<FoodDetailsResponse> getAllFoods() {
+
+       List<FoodDetails> foodDetailsList = foodDetailsRepository.findAll();
+
+       if (foodDetailsList.isEmpty()){
+           System.out.println("food details not found");
+       }
+
+    return foodDetailsList.stream().map(foodDetails -> modelMapper.map(foodDetails,FoodDetailsResponse.class)).collect(Collectors.toList());
+
+
     }
 }

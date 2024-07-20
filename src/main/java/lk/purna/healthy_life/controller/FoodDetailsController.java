@@ -8,11 +8,14 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 
 @RestController
@@ -31,5 +34,13 @@ public class FoodDetailsController {
 //        return new ResponseEntity<>(foodDetailsResponse, HttpStatus.CREATED);
 
         return ResponseEntity.created(URI.create("/food_details")).body(foodDetailsResponse);
+    }
+
+    @GetMapping("/food_details")
+    public List<ResponseEntity<List<FoodDetailsResponse>>> getAllFoods(){
+
+      List<FoodDetailsResponse> foodDetailsResponseList = foodDetailsService.getAllFoods();
+
+      return Collections.singletonList(new ResponseEntity<>(foodDetailsResponseList, HttpStatus.FOUND));
     }
 }
