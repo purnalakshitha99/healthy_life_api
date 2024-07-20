@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 
 
 @RestController
@@ -27,6 +28,8 @@ public class FoodDetailsController {
         FoodDetailsDto foodDetailsDto = modelMapper.map(foodDetailsRq, FoodDetailsDto.class);
         FoodDetailsResponse foodDetailsResponse = foodDetailsService.createFoodDetails(foodDetailsDto);
 
-        return new ResponseEntity<>(foodDetailsResponse, HttpStatus.CREATED);
+//        return new ResponseEntity<>(foodDetailsResponse, HttpStatus.CREATED);
+
+        return ResponseEntity.created(URI.create("/food_details")).body(foodDetailsResponse);
     }
 }
