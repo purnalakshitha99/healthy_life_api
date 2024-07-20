@@ -1,11 +1,9 @@
 package lk.purna.healthy_life.exception;
 
-import org.aspectj.weaver.ast.Not;
-
-public class FoodNotFoundException extends NotFoundException {
+public class FoodDetailsNotFoundException extends NotFoundException {
 
 
-    public FoodNotFoundException(String message) {
+    public FoodDetailsNotFoundException(String message) {
         super(message);
     }
 }

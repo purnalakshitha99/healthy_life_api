@@ -2,6 +2,7 @@ package lk.purna.healthy_life.service.impl;
 
 import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
 import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
+import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
 import lk.purna.healthy_life.model.FoodDetails;
 import lk.purna.healthy_life.repository.FoodDetailsRepository;
 import lk.purna.healthy_life.service.FoodDetailsService;
@@ -31,16 +32,33 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
     }
 
     @Override
-    public List<FoodDetailsResponse> getAllFoods() {
+    public List<FoodDetailsResponse> getAllFoods()throws FoodDetailsNotFoundException {
 
        List<FoodDetails> foodDetailsList = foodDetailsRepository.findAll();
 
        if (foodDetailsList.isEmpty()){
-           System.out.println("food details not found");
+           throw new FoodDetailsNotFoundException("food details is empty not food details in db");
        }
 
     return foodDetailsList.stream().map(foodDetails -> modelMapper.map(foodDetails,FoodDetailsResponse.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public FoodDetailsResponse updateFoodDetails(Long foodDetailsId, FoodDetailsDto foodDetailsDto)throws FoodDetailsNotFoundException {
+
+        FoodDetails foodDetails = foodDetailsRepository.findById(foodDetailsId).orElseThrow(
+                ()-> new FoodDetailsNotFoundException("that food details is not in a database")
+        );
+
+        modelMapper.map(foodDetailsDto,foodDetails);
+
+        foodDetailsRepository.save(foodDetails);
+
+        return modelMapper.map(foodDetails,FoodDetailsResponse.class);
+
 
 
     }
+
+
 }
