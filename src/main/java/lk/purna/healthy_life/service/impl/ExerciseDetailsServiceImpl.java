@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ExerciseDetailsServiceImpl implements ExerciseDetailsService {
@@ -21,10 +24,9 @@ public class ExerciseDetailsServiceImpl implements ExerciseDetailsService {
     public ExerciseDetailsResponse createExerciseDetails(ExerciseDetailsDto exerciseDetailsDto) {
 
         ExerciseDetails exerciseDetails = modelMapper.map(exerciseDetailsDto,ExerciseDetails.class);
-        System.out.println("puuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+exerciseDetails.getTimeType());
-//        exerciseDetails.setTimeType(exerciseDetailsDto.getTimeType());
+
         exerciseDetailsRepository.save(exerciseDetails);
-        System.out.println("ssssssssssssssssssssssssssssssssss"+exerciseDetails.getTimeType());
+
 
         return modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class);
     }
@@ -52,5 +54,20 @@ public class ExerciseDetailsServiceImpl implements ExerciseDetailsService {
         exerciseDetailsRepository.save(exerciseDetails);
 
         return modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class);
+    }
+
+    public List<ExerciseDetailsResponse> getAllExerciseDetails()throws ExerciseDetailsNotFoundException{
+
+        List<ExerciseDetails> exerciseDetailsList = exerciseDetailsRepository.findAll();
+
+
+
+        if (exerciseDetailsList.isEmpty()){
+            throw new ExerciseDetailsNotFoundException("Exercise not in a DB, DB is empty");
+        }
+
+      return exerciseDetailsList.stream().map(exerciseDetails -> modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class)).toList();
+
+
     }
 }

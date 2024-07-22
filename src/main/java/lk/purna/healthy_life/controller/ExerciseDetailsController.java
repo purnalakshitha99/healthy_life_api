@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -24,9 +27,9 @@ public class ExerciseDetailsController {
     @PostMapping("/exercise_details")
     public ResponseEntity<ExerciseDetailsResponse> createExerciseDetails(@RequestBody ExerciseDetailsRq exerciseDetailsRq){
 
-        System.out.println("hiiiiiiiiiiiii"+exerciseDetailsRq.getTimeType());
+
         ExerciseDetailsDto exerciseDetailsDto = modelMapper.map(exerciseDetailsRq,ExerciseDetailsDto.class);
-        System.out.println("--------------====================----------------"+exerciseDetailsDto.getTimeType());
+
         ExerciseDetailsResponse exerciseDetailsResponse = exerciseDetailsService.createExerciseDetails(exerciseDetailsDto);
 
         return  ResponseEntity.created(URI.create("/exercise_details")).body(exerciseDetailsResponse);
@@ -48,4 +51,19 @@ public class ExerciseDetailsController {
 
         return new ResponseEntity<>(exerciseDetailsResponse,HttpStatus.CREATED);
     }
+
+    @GetMapping("/exercise_details")
+    public List<ResponseEntity<ExerciseDetailsResponse>> getAllExerciseDetails() throws ExerciseDetailsNotFoundException {
+        List<ExerciseDetailsResponse> exerciseDetailsResponseList = exerciseDetailsService.getAllExerciseDetails();
+
+        return exerciseDetailsResponseList.stream()
+                .map(exerciseDetailsResponse -> new ResponseEntity<>(
+                        modelMapper.map(exerciseDetailsResponse, ExerciseDetailsResponse.class),
+                        HttpStatus.FOUND))
+                .collect(Collectors.toList());
+    }
+
+
+
+
 }
