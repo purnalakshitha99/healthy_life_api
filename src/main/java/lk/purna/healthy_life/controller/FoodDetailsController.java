@@ -50,4 +50,14 @@ public class FoodDetailsController {
 
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.CREATED);
     }
+
+    @GetMapping("/food_details/{food_details_id}")
+    public ResponseEntity<FoodDetailsResponse> getSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
+
+        FoodDetailsResponse foodDetailsResponse = foodDetailsService.getSpecificFoodDetails(foodDetailsId);
+
+        return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
+    }
+
+
 }
