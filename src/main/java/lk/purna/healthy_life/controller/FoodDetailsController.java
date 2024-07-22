@@ -43,11 +43,28 @@ public class FoodDetailsController {
     }
 
     @PutMapping("/food_details/{food_details_id}")
-    public ResponseEntity updateFoodDetails(@PathVariable("food_details_id")Long foodDetailsId, @RequestBody FoodDetailsRq foodDetailsRq)throws FoodDetailsNotFoundException{
+    public ResponseEntity<FoodDetailsResponse> updateFoodDetails(@PathVariable("food_details_id")Long foodDetailsId, @RequestBody FoodDetailsRq foodDetailsRq)throws FoodDetailsNotFoundException{
 
         FoodDetailsDto foodDetailsDto = modelMapper.map(foodDetailsRq,FoodDetailsDto.class);
         FoodDetailsResponse foodDetailsResponse = foodDetailsService.updateFoodDetails(foodDetailsId,foodDetailsDto);
 
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.CREATED);
     }
+
+    @GetMapping("/food_details/{food_details_id}")
+    public ResponseEntity<FoodDetailsResponse> getSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
+
+        FoodDetailsResponse foodDetailsResponse = foodDetailsService.getSpecificFoodDetails(foodDetailsId);
+
+        return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/food_details/{food_details_id}")
+    public ResponseEntity<FoodDetailsResponse> deleteSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
+
+        FoodDetailsResponse foodDetailsResponse = foodDetailsService.deleteSpecificFoodDetails(foodDetailsId);
+
+        return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
+    }
+
 }
