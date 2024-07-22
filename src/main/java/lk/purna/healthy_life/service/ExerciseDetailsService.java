@@ -14,4 +14,6 @@ public interface ExerciseDetailsService {
     ExerciseDetailsResponse updateSpecificExerciseDetails(Long exerciseDetailsId, ExerciseDetailsDto exerciseDetailsDto)throws ExerciseDetailsNotFoundException;
 
     List<ExerciseDetailsResponse> getAllExerciseDetails()throws ExerciseDetailsNotFoundException;
+
+    ExerciseDetailsResponse deleteSpecificExercise(Long exerciseDetailsId)throws ExerciseDetailsNotFoundException;
 }

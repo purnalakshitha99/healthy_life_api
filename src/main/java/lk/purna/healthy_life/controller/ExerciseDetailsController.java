@@ -63,6 +63,14 @@ public class ExerciseDetailsController {
                 .collect(Collectors.toList());
     }
 
+    @DeleteMapping("/exercise_details/{exercise_details_id}")
+    public ResponseEntity<ExerciseDetailsResponse>  deleteSpecificExercise(@PathVariable("exercise_details_id")Long exerciseDetailsId)throws ExerciseDetailsNotFoundException{
+
+        ExerciseDetailsResponse exerciseDetailsResponse = exerciseDetailsService.deleteSpecificExercise(exerciseDetailsId);
+
+        return new ResponseEntity<>(exerciseDetailsResponse,HttpStatus.FOUND);
+    }
+
 
 
 

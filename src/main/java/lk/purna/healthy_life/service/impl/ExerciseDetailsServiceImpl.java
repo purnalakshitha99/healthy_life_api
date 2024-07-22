@@ -70,4 +70,16 @@ public class ExerciseDetailsServiceImpl implements ExerciseDetailsService {
 
 
     }
+
+    @Override
+    public ExerciseDetailsResponse deleteSpecificExercise(Long exerciseDetailsId) throws ExerciseDetailsNotFoundException {
+
+        ExerciseDetails exerciseDetails = exerciseDetailsRepository.findById(exerciseDetailsId).orElseThrow(
+                ()-> new ExerciseDetailsNotFoundException("That exercise Details Not in a db")
+        );
+
+        exerciseDetailsRepository.deleteById(exerciseDetailsId);
+
+        return modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class);
+    }
 }
