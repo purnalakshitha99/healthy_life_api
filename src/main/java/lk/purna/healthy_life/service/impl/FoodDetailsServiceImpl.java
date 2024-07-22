@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FoodDetailsServiceImpl implements FoodDetailsService {
 
-    private final ExerciseDetailsRepository exerciseDetailsRepository;
+
     private ModelMapper modelMapper;
     private FoodDetailsRepository foodDetailsRepository;
 
@@ -83,15 +83,7 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
         return modelMapper.map(foodDetails,FoodDetailsResponse.class);
     }
 
-    @Override
-    public ExerciseDetailsResponse createExerciseDetails(ExerciseDetailsDto exerciseDetailsDto) {
 
-        ExerciseDetails exerciseDetails = modelMapper.map(exerciseDetailsDto,ExerciseDetails.class);
-
-        exerciseDetailsRepository.save(exerciseDetails);
-
-        return modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class);
-    }
 
 
 }

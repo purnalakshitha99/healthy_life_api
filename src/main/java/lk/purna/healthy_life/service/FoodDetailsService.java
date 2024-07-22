@@ -19,5 +19,5 @@ public interface FoodDetailsService {
 
     FoodDetailsResponse deleteSpecificFoodDetails(Long foodDetailsId)throws FoodDetailsNotFoundException;
 
-    ExerciseDetailsResponse createExerciseDetails(ExerciseDetailsDto exerciseDetailsDto);
+
 }

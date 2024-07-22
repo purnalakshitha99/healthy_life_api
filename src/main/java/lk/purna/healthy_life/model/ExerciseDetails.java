@@ -14,6 +14,7 @@ public class ExerciseDetails {
 
     private String name;
     private float burnCalories;
-    private TimeType timeType;
+
+    private String timeType;
     private Integer timeAmount;
 }
