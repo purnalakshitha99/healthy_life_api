@@ -1,2 +1,4 @@
-package lk.purna.healthy_life.service;public class ExerciseDetailsService {
+package lk.purna.healthy_life.service;
+
+public interface ExerciseDetailsService {
 }

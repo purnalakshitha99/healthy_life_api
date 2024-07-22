@@ -1,9 +1,13 @@
 package lk.purna.healthy_life.service.impl;
 
+import lk.purna.healthy_life.controller.dto.ExerciseDetailsDto;
 import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
+import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
 import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
+import lk.purna.healthy_life.model.ExerciseDetails;
 import lk.purna.healthy_life.model.FoodDetails;
+import lk.purna.healthy_life.repository.ExerciseDetailsRepository;
 import lk.purna.healthy_life.repository.FoodDetailsRepository;
 import lk.purna.healthy_life.service.FoodDetailsService;
 import lombok.AllArgsConstructor;
@@ -17,6 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FoodDetailsServiceImpl implements FoodDetailsService {
 
+    private final ExerciseDetailsRepository exerciseDetailsRepository;
     private ModelMapper modelMapper;
     private FoodDetailsRepository foodDetailsRepository;
 
@@ -76,6 +81,16 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
          foodDetailsRepository.deleteById(foodDetailsId);
 
         return modelMapper.map(foodDetails,FoodDetailsResponse.class);
+    }
+
+    @Override
+    public ExerciseDetailsResponse createExerciseDetails(ExerciseDetailsDto exerciseDetailsDto) {
+
+        ExerciseDetails exerciseDetails = modelMapper.map(exerciseDetailsDto,ExerciseDetails.class);
+
+        exerciseDetailsRepository.save(exerciseDetails);
+
+        return modelMapper.map(exerciseDetails,ExerciseDetailsResponse.class);
     }
 
 
