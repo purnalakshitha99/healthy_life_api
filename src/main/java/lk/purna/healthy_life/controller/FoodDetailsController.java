@@ -43,7 +43,7 @@ public class FoodDetailsController {
     }
 
     @PutMapping("/food_details/{food_details_id}")
-    public ResponseEntity updateFoodDetails(@PathVariable("food_details_id")Long foodDetailsId, @RequestBody FoodDetailsRq foodDetailsRq)throws FoodDetailsNotFoundException{
+    public ResponseEntity<FoodDetailsResponse> updateFoodDetails(@PathVariable("food_details_id")Long foodDetailsId, @RequestBody FoodDetailsRq foodDetailsRq)throws FoodDetailsNotFoundException{
 
         FoodDetailsDto foodDetailsDto = modelMapper.map(foodDetailsRq,FoodDetailsDto.class);
         FoodDetailsResponse foodDetailsResponse = foodDetailsService.updateFoodDetails(foodDetailsId,foodDetailsDto);
