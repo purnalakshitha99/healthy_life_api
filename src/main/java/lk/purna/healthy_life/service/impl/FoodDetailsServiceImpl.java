@@ -67,5 +67,16 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
         return modelMapper.map(foodDetails,FoodDetailsResponse.class);
     }
 
+    public FoodDetailsResponse deleteSpecificFoodDetails(Long foodDetailsId)throws FoodDetailsNotFoundException{
+
+        FoodDetails foodDetails = foodDetailsRepository.findById(foodDetailsId).orElseThrow(
+                ()-> new FoodDetailsNotFoundException("That food Details not in a database")
+        );
+
+         foodDetailsRepository.deleteById(foodDetailsId);
+
+        return modelMapper.map(foodDetails,FoodDetailsResponse.class);
+    }
+
 
 }

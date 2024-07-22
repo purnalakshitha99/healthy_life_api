@@ -59,5 +59,12 @@ public class FoodDetailsController {
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
     }
 
+    @DeleteMapping("/food_details/{food_details_id}")
+    public ResponseEntity<FoodDetailsResponse> deleteSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
+
+        FoodDetailsResponse foodDetailsResponse = foodDetailsService.deleteSpecificFoodDetails(foodDetailsId);
+
+        return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
+    }
 
 }

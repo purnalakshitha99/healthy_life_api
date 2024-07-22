@@ -14,4 +14,6 @@ public interface FoodDetailsService {
     FoodDetailsResponse updateFoodDetails(Long foodDetailsId, FoodDetailsDto foodDetailsDto)throws FoodDetailsNotFoundException;
 
     FoodDetailsResponse getSpecificFoodDetails(Long foodDetailsId)throws FoodDetailsNotFoundException;
+
+    FoodDetailsResponse deleteSpecificFoodDetails(Long foodDetailsId)throws FoodDetailsNotFoundException;
 }
