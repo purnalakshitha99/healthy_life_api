@@ -2,6 +2,7 @@ package lk.purna.healthy_life.service.impl;
 
 import lk.purna.healthy_life.controller.dto.UserDto;
 import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
+import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
 import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
@@ -38,5 +39,20 @@ public class UserServiceImpl implements UserService {
         );
 
         return modelMapper.map(user,UserResponse.class);
+    }
+
+    @Override
+    public UserResponse updateUser(Long userID, UserDto userDto) throws UserNotFoundException {
+
+        User user = userRepository.findById(userID).orElseThrow(
+                ()->  new UserNotFoundException("That UserNot In a db")
+        );
+
+        modelMapper.map(userDto,user);
+
+        userRepository.save(user);
+
+        return modelMapper.map(user, UserResponse.class);
+
     }
 }
