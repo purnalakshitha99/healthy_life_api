@@ -53,4 +53,12 @@ public class UserController {
         return new ResponseEntity<>(userResponse,HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/users/{user_id}")
+    public ResponseEntity<UserResponse> deleteSpecificUser(@PathVariable("user_id")Long userId)throws UserNotFoundException{
+
+        UserResponse userResponse = userService.deleteSpecificUser(userId);
+
+        return new ResponseEntity<>(userResponse,HttpStatus.FOUND);
+    }
+
 }
