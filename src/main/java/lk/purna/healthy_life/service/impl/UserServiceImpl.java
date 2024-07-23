@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -67,6 +69,14 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(userId);
 
         return modelMapper.map(user,UserResponse.class);
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() throws UserNotFoundException {
+
+        List<User> userList = userRepository.findAll();
+
+        return userList.stream().map(user -> modelMapper.map(user,UserResponse.class)).toList();
     }
 
 
