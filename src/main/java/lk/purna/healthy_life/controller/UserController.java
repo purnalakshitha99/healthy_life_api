@@ -1,10 +1,14 @@
 package lk.purna.healthy_life.controller;
 
+import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
 import lk.purna.healthy_life.controller.dto.UserDto;
+import lk.purna.healthy_life.controller.request.FoodDetailsRq;
 import lk.purna.healthy_life.controller.request.UserRq;
 import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
+import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
 import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
+import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.UserService;
 import lombok.AllArgsConstructor;
@@ -37,6 +41,16 @@ public class UserController {
         UserResponse userResponse  = userService.getSpecificUser(userId);
 
         return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
+    }
+
+
+    @PutMapping("/users/{user_id}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable("user_id")Long userID, @RequestBody UserRq userRq)throws UserNotFoundException {
+
+        UserDto userDto = modelMapper.map(userRq,UserDto.class);
+        UserResponse userResponse = userService.updateUser(userID,userDto);
+
+        return new ResponseEntity<>(userResponse,HttpStatus.CREATED);
     }
 
 }

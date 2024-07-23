@@ -8,4 +8,6 @@ public interface UserService {
     UserResponse createUser(UserDto userDto);
 
     UserResponse getSpecificUser(Long userId)throws UserNotFoundException;
+
+    UserResponse updateUser(Long userID, UserDto userDto)throws UserNotFoundException;
 }
