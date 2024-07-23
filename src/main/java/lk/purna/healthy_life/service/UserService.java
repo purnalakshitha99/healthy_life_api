@@ -10,4 +10,6 @@ public interface UserService {
     UserResponse getSpecificUser(Long userId)throws UserNotFoundException;
 
     UserResponse updateUser(Long userID, UserDto userDto)throws UserNotFoundException;
+
+    UserResponse deleteSpecificUser(Long userId)throws UserNotFoundException;
 }

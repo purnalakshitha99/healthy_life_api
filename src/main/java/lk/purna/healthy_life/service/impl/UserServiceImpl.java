@@ -5,8 +5,10 @@ import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
 import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
 import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
+import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.model.ExerciseDetails;
+import lk.purna.healthy_life.model.FoodDetails;
 import lk.purna.healthy_life.model.User;
 import lk.purna.healthy_life.repository.UserRepository;
 import lk.purna.healthy_life.service.UserService;
@@ -55,4 +57,17 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(user, UserResponse.class);
 
     }
+
+    public UserResponse deleteSpecificUser(Long userId)throws UserNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That food Details not in a database")
+        );
+
+        userRepository.deleteById(userId);
+
+        return modelMapper.map(user,UserResponse.class);
+    }
+
+
 }
