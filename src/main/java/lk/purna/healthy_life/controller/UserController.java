@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -59,6 +61,14 @@ public class UserController {
         UserResponse userResponse = userService.deleteSpecificUser(userId);
 
         return new ResponseEntity<>(userResponse,HttpStatus.FOUND);
+    }
+
+    @GetMapping("/users")
+    public List<ResponseEntity<List<UserResponse>>> getAllUsers()throws UserNotFoundException {
+
+        List<UserResponse> userResponseList = userService.getAllUsers();
+
+        return Collections.singletonList(new ResponseEntity<>(userResponseList, HttpStatus.FOUND));
     }
 
 }
