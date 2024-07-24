@@ -76,6 +76,10 @@ public class UserServiceImpl implements UserService {
 
         List<User> userList = userRepository.findAll();
 
+        if (userList.isEmpty()){
+            throw new UserNotFoundException("user are empty in the db");
+        }
+
         return userList.stream().map(user -> modelMapper.map(user,UserResponse.class)).toList();
     }
 
