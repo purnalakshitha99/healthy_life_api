@@ -83,6 +83,11 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
         return modelMapper.map(foodDetails,FoodDetailsResponse.class);
     }
 
+    @Override
+    public List<FoodDetails> searchFoodByPrefix(String prefix) {
+        return foodDetailsRepository.findByNameStartingWithIgnoreCase(prefix);
+    }
+
 
 
 

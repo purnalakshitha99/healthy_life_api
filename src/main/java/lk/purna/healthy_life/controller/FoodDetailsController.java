@@ -4,6 +4,7 @@ import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
 import lk.purna.healthy_life.controller.request.FoodDetailsRq;
 import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
+import lk.purna.healthy_life.model.FoodDetails;
 import lk.purna.healthy_life.service.FoodDetailsService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,6 +38,7 @@ public class FoodDetailsController {
     @GetMapping("/food_details")
     public List<ResponseEntity<List<FoodDetailsResponse>>> getAllFoods()throws FoodDetailsNotFoundException {
 
+
       List<FoodDetailsResponse> foodDetailsResponseList = foodDetailsService.getAllFoods();
 
       return Collections.singletonList(new ResponseEntity<>(foodDetailsResponseList, HttpStatus.FOUND));
@@ -65,6 +67,12 @@ public class FoodDetailsController {
         FoodDetailsResponse foodDetailsResponse = foodDetailsService.deleteSpecificFoodDetails(foodDetailsId);
 
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
+    }
+
+    @GetMapping("/foods/search")
+    public List<FoodDetails> searchFoodDetails(@RequestParam String query){
+        String prefix = query.length() > 3 ? query.substring(0,3) : query;
+        return foodDetailsService.searchFoodByPrefix(prefix);
     }
 
 }
