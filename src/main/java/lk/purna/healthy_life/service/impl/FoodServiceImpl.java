@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -30,7 +31,7 @@ public class FoodServiceImpl implements FoodService {
     private final FoodDetailsRepository foodDetailsRepository;
 
     @Override
-    public List<FoodResponse> createFoodForUser(Long userId, List<FoodSelectionDto> foodSelectionDtoList) throws UserNotFoundException, FoodDetailsNotFoundException {
+    public List<FoodResponse> createFoodForUser(Long userId, List<FoodSelectionDto> foodSelectionDtoList) throws UserNotFoundException {
 
 
         User user = userRepository.findById(userId).orElseThrow(
@@ -42,12 +43,17 @@ public class FoodServiceImpl implements FoodService {
                     ()-> new RuntimeException("That Food Not in a db: "+foodSelectionRq.getFoodId())
             );
 
+
             LocalDate currentDate = LocalDate.now();
 
-            Food food = modelMapper.map(foodSelectionRq,Food.class);
+
 
             Float ratio = foodSelectionRq.getAmountInGram() / foodDetails.getAmount();
 
+            Food food = new Food();
+
+            food.setAmount(foodSelectionRq.getAmountInGram());
+            food.setFoodType(foodSelectionRq.getFoodType());
             food.setDate(currentDate);
             food.setCalories(foodDetails.getCalories() * ratio);
             food.setFat(foodDetails.getFat() * ratio);
@@ -62,8 +68,9 @@ public class FoodServiceImpl implements FoodService {
            user.getFoodList().add(food);
 
            return modelMapper.map(food, FoodResponse.class);
-        } ).toList();
+        } ) .collect(Collectors.toList());
 
+        userRepository.save(user);
         return responses;
     }
 }

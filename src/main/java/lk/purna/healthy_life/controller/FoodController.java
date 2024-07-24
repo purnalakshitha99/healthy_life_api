@@ -31,7 +31,7 @@ public class FoodController {
     public ResponseEntity<List<FoodResponse>> createFoodForUser(
             @PathVariable("user_id") Long userId,
             @RequestBody List<FoodSelectionRq> foodSelectionRqList)
-            throws UserNotFoundException, FoodDetailsNotFoundException {
+            throws UserNotFoundException {
 
         // Print each FoodSelectionRequest's foodId to the console
         foodSelectionRqList.forEach(request -> {

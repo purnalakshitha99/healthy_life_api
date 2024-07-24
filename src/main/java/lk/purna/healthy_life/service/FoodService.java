@@ -9,5 +9,5 @@ import lk.purna.healthy_life.exception.UserNotFoundException;
 import java.util.List;
 
 public interface FoodService {
-    List<FoodResponse> createFoodForUser(Long userId, List<FoodSelectionDto> foodSelectionDtoList)throws UserNotFoundException, FoodDetailsNotFoundException;
+    List<FoodResponse> createFoodForUser(Long userId, List<FoodSelectionDto> foodSelectionDtoList)throws UserNotFoundException;
 }
