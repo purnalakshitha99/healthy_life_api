@@ -26,5 +26,5 @@ public class Exercise {
 
 
     @ManyToMany(mappedBy = "exerciseList")
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList ;
 }

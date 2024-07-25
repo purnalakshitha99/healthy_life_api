@@ -195,6 +195,8 @@ public class ExerciseServiceImpl implements ExerciseService {
         exercise.setTimeType(TimeType.valueOf(String.valueOf(exerciseDto.getTimeType())));
         exercise.setTimeAmount(exerciseDto.getTimeAmount());
 
+
+
         float ratio;
         float burnCalories;
         float timeAmount = exerciseDto.getTimeAmount();
@@ -219,7 +221,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         // Associate the exercise with the user
         user.getExerciseList().add(exercise);
-        exercise.getUserList().add(user);
+//        exercise.getUserList().add(user);
 
         // Save the user to update the relationship
         userRepository.save(user);
