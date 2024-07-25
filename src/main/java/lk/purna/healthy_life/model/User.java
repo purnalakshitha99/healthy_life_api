@@ -22,4 +22,8 @@ public class User {
     @JoinTable(name = "user_foods",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "food_id"))
     @ManyToMany
     private List<Food> foodList;
+
+    @JoinTable(name = "user_exercise",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    @ManyToMany
+    private List<Exercise> exerciseList = new ArrayList<>();
 }

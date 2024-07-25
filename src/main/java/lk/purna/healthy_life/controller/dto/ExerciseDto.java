@@ -6,13 +6,10 @@ import lk.purna.healthy_life.model.TimeType;
 import lombok.Data;
 
 @Data
-public class ExerciseDetailsDto {
+public class ExerciseDto {
 
-
-    private String name;
-    private Float burnCalories;
+    private Long exerciseId;
     @Enumerated(EnumType.STRING)
     private TimeType timeType;
     private Integer timeAmount;
-
 }
