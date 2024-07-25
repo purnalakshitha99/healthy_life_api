@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,8 +21,6 @@ public class Exercise {
     private TimeType timeType;
     private Integer timeAmount;
     private LocalDate date;
-
-
 
     @ManyToMany(mappedBy = "exerciseList")
     private List<User> userList ;
