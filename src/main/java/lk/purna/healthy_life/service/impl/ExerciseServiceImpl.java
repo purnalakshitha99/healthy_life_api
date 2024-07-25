@@ -29,153 +29,6 @@ public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseDetailsRepository exerciseDetailsRepository;
     private final ExerciseRepository exerciseRepository;
 
-
-//    @Override
-//    public ExerciseResponse createExerciseForUser(Long userId, ExerciseDto exerciseDto) throws UserNotFoundException,ExerciseDetailsNotFoundException {
-//
-//
-//        LocalDate currentDate = LocalDate.now();
-//
-//        User user = userRepository.findById(userId).orElseThrow(
-//                ()-> new UserNotFoundException("That User Not in a db")
-//        );
-//
-//        ExerciseDetails exerciseDetails = exerciseDetailsRepository.findById(exerciseDto.getExerciseId()).orElseThrow(
-//                ()-> new ExerciseDetailsNotFoundException("That Exercise Not in a db")
-//        );
-//
-//        Exercise exercise = modelMapper.map(exerciseDto,Exercise.class);
-//
-//        float ratio;
-//        float burnCalories;
-//        TimeType timeType = exerciseDto.getTimeType();
-//        float timeAmount = Float.valueOf(exerciseDto.getTimeAmount());
-//        float hoursInMinute;
-//
-//        if (timeType == TimeType.HOURS){
-//
-//            hoursInMinute = timeAmount*60;
-//            ratio = hoursInMinute / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//        } else if (timeType == TimeType.MINUTE) {
-//
-//            ratio = timeAmount / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//
-//        }
-//
-//        exercise.setDate(currentDate);
-//        exercise.setName(exerciseDetails.getName());
-//
-//        user.getExerciseList().add(exercise);
-//        exercise.getUserList().add(user);
-//        exerciseRepository.save(exercise);
-//
-//        return modelMapper.map(exercise, ExerciseResponse.class);
-//    }
-
-//    @Override
-//    public ExerciseResponse createExerciseForUser(Long userId, ExerciseDto exerciseDto) throws UserNotFoundException, ExerciseDetailsNotFoundException {
-//
-//        LocalDate currentDate = LocalDate.now();
-//
-//        User user = userRepository.findById(userId).orElseThrow(
-//                () -> new UserNotFoundException("That User Not in a db")
-//        );
-//
-//        ExerciseDetails exerciseDetails = exerciseDetailsRepository.findById(exerciseDto.getExerciseId()).orElseThrow(
-//                () -> new ExerciseDetailsNotFoundException("That Exercise Not in a db")
-//        );
-//
-//        if (exerciseDetails == null) {
-//            throw new ExerciseDetailsNotFoundException("Exercise not found : ");
-//        }
-//
-//        Exercise exercise = modelMapper.map(exerciseDto, Exercise.class);
-//
-//        float ratio;
-//        float burnCalories;
-//        TimeType timeType = exerciseDto.getTimeType();
-//        float timeAmount = Float.valueOf(exerciseDto.getTimeAmount());
-//        float hoursInMinute;
-//
-//        if (timeType == TimeType.HOURS) {
-//            hoursInMinute = timeAmount * 60;
-//            ratio = hoursInMinute / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//        } else if (timeType == TimeType.MINUTE) {
-//            ratio = timeAmount / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//        }
-//
-//        exercise.setDate(currentDate);
-//        exercise.setName(exerciseDetails.getName());
-//
-//        // Save the exercise first
-//       exercise =  exerciseRepository.save(exercise);
-//
-//        // Add the saved exercise to the user's exercise list
-//        user.getExerciseList().add(exercise);
-//
-//
-//
-////        // Update the user entity
-//        userRepository.save(user);
-//
-//        return modelMapper.map(exercise, ExerciseResponse.class);
-//    }
-
-//    @Override
-//    public ExerciseResponse createExerciseForUser(Long userId, ExerciseDto exerciseDto) throws UserNotFoundException, ExerciseDetailsNotFoundException {
-//
-//        LocalDate currentDate = LocalDate.now();
-//
-//        User user = userRepository.findById(userId).orElseThrow(
-//                () -> new UserNotFoundException("That User Not in a db")
-//        );
-//
-//        ExerciseDetails exerciseDetails = exerciseDetailsRepository.findById(exerciseDto.getExerciseId()).orElseThrow(
-//                () -> new ExerciseDetailsNotFoundException("That Exercise Not in a db")
-//        );
-//
-//        Exercise exercise = modelMapper.map(exerciseDto, Exercise.class);
-//
-//        float ratio;
-//        float burnCalories;
-//        TimeType timeType = exerciseDto.getTimeType();
-//        float timeAmount = Float.valueOf(exerciseDto.getTimeAmount());
-//        float hoursInMinute;
-//
-//        if (timeType == TimeType.HOURS) {
-//            hoursInMinute = timeAmount * 60;
-//            ratio = hoursInMinute / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//        } else if (timeType == TimeType.MINUTE) {
-//            ratio = timeAmount / exerciseDetails.getTimeAmount();
-//            burnCalories = ratio * exerciseDetails.getBurnCalories();
-//            exercise.setBurnCalories(burnCalories);
-//        }
-//
-//        exercise.setDate(currentDate);
-//        exercise.setName(exerciseDetails.getName());
-//
-//        // Save the exercise first
-//        exercise = exerciseRepository.save(exercise);
-//
-//        // Add the saved exercise to the user's exercise list
-//        user.getExerciseList().add(exercise);
-//
-//        // Update the user entity
-//        userRepository.save(user);
-//
-//        return modelMapper.map(exercise, ExerciseResponse.class);
-//    }
-
     @Override
     public ExerciseResponse createExerciseForUser(Long userId, ExerciseDto exerciseDto) throws UserNotFoundException, ExerciseDetailsNotFoundException {
 
@@ -194,9 +47,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         exercise.setName(exerciseDetails.getName());
         exercise.setTimeType(TimeType.valueOf(String.valueOf(exerciseDto.getTimeType())));
         exercise.setTimeAmount(exerciseDto.getTimeAmount());
-
-
-
+        //meke model mapper use karanam ara body eka athulemane id eka enne ethakota e id ekata adala exercise eka witharai update kara ganne
         float ratio;
         float burnCalories;
         float timeAmount = exerciseDto.getTimeAmount();
@@ -213,7 +64,6 @@ public class ExerciseServiceImpl implements ExerciseService {
             throw new IllegalArgumentException("Invalid time type: " + exercise.getTimeType());
         }
 
-
         exercise.setBurnCalories(burnCalories);
 
         // Save the new exercise first to generate its ID
@@ -224,12 +74,8 @@ public class ExerciseServiceImpl implements ExerciseService {
 //        exercise.getUserList().add(user);
 
         // Save the user to update the relationship
-        userRepository.save(user);
+        userRepository.save(user);  //meka nathi unoth user_exercise table eka update wenne na
 
         return modelMapper.map(exercise, ExerciseResponse.class);
     }
-
-
-
-
 }
