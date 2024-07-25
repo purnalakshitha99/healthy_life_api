@@ -1,4 +1,4 @@
-package lk.purna.healthy_life.controller.dto;
+package lk.purna.healthy_life.controller.request;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -6,13 +6,10 @@ import lk.purna.healthy_life.model.TimeType;
 import lombok.Data;
 
 @Data
-public class ExerciseDetailsDto {
+public class ExerciseRq {
 
-
-    private String name;
-    private Float burnCalories;
+    private Long exerciseId;
     @Enumerated(EnumType.STRING)
     private TimeType timeType;
     private Integer timeAmount;
-
 }
