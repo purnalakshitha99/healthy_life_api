@@ -86,11 +86,18 @@ public class AnswerServiceImpl implements AnswerService {
 
         modelMapper.map(answerDto,answer);
 
-        answerRepository.save(answer);
+        answer = answerRepository.save(answer);
+
+        System.out.println("level" +answer.getActivityLevel());
+        System.out.println("age"+answer.getAge());
+        System.out.println("weight"+answer.getGoalWeight());
+        System.out.println("gym"+answer.getGymStatus());
 
         return modelMapper.map(answer,AnswerResponse.class);
 
     }
+
+
 
 
 }
