@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,7 +64,32 @@ public class AnswerServiceImpl implements AnswerService {
             throw new AnswerNotFoundException("Answer db is empty");
         }
 
-        return Collections.singletonList(modelMapper.map(answerList, AnswerResponse.class));
+         List<AnswerResponse> answerResponseList = new ArrayList<>();
+
+        for (Answer answer:answerList){
+
+            AnswerResponse answerResponse = modelMapper.map(answer,AnswerResponse.class);
+            answerResponseList.add(answerResponse);
+        }
+
+        return answerResponseList;
+
+    }
+
+    public AnswerResponse updateSpecificUserAnswer(Long userId,AnswerDto answerDto)throws UserNotFoundException,AnswerNotFoundException{
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user Not in a Db")
+        );
+
+        Answer answer = user.getAnswer();
+
+        modelMapper.map(answerDto,answer);
+
+        answerRepository.save(answer);
+
+        return modelMapper.map(answer,AnswerResponse.class);
+
     }
 
 

@@ -41,10 +41,21 @@ public class AnswerController {
         return new ResponseEntity<>(answerResponse,HttpStatus.FOUND);
     }
 
+    @GetMapping("/users/answers")
     public List<ResponseEntity<List<AnswerResponse>>> getAllAnswers()throws AnswerNotFoundException{
 
           List <AnswerResponse> answerResponseList = answerService.getAllAnswers();
 
         return Collections.singletonList(new ResponseEntity<>(answerResponseList, HttpStatus.FOUND));
     }
+
+    @PutMapping("/users/{user_id}/answers")
+    public ResponseEntity<AnswerResponse> updateSpecificUserAnswer(@PathVariable("user_id")Long userId,AnswerRq answerRq)throws UserNotFoundException,AnswerNotFoundException{
+
+        AnswerDto answerDto = modelMapper.map(answerRq,AnswerDto.class);
+        AnswerResponse answerResponse = answerService.updateSpecificUserAnswer(userId,answerDto);
+
+        return new ResponseEntity<>(answerResponse,HttpStatus.CREATED);
+    }
+
 }

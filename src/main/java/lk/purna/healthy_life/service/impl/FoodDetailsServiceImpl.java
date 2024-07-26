@@ -55,7 +55,7 @@ public class FoodDetailsServiceImpl implements FoodDetailsService {
                 ()-> new FoodDetailsNotFoundException("that food details is not in a database")
         );
 
-        modelMapper.map(foodDetailsDto,foodDetails);
+        modelMapper.map(foodDetailsDto,foodDetails); //update
 
         foodDetailsRepository.save(foodDetails);
 
