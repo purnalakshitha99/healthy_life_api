@@ -59,6 +59,14 @@ public class AnswerController {
         return new ResponseEntity<>(answerResponse,HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/users/{user_id}/answers")
+    public ResponseEntity<AnswerResponse> deleteSpecificUserAnswer(@PathVariable("user_id")Long userId)throws UserNotFoundException,AnswerNotFoundException{
+
+        AnswerResponse answerResponse = answerService.deleteSpecificUserAnswer(userId);
+
+        return new ResponseEntity<>(answerResponse,HttpStatus.ACCEPTED);
+    }
+
 
 
 }

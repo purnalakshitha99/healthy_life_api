@@ -15,4 +15,6 @@ public interface AnswerService {
     List<AnswerResponse> getAllAnswers()throws AnswerNotFoundException;
 
     AnswerResponse updateSpecificUserAnswer(Long userId,AnswerDto answerDto)throws UserNotFoundException,AnswerNotFoundException;
+
+    AnswerResponse deleteSpecificUserAnswer(Long userId)throws UserNotFoundException,AnswerNotFoundException;
 }

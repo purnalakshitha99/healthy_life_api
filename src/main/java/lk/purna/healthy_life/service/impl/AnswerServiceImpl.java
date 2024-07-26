@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.UnmodifiableSetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -97,7 +98,23 @@ public class AnswerServiceImpl implements AnswerService {
 
     }
 
+    @Override
+    public AnswerResponse deleteSpecificUserAnswer(Long userId) throws UserNotFoundException, AnswerNotFoundException {
 
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("that user not in a db")
+        );
+
+        Answer answer = user.getAnswer();
+
+        if (answer == null){
+            throw new AnswerNotFoundException("Answer is empty");
+        }
+
+        answerRepository.delete(answer);
+
+        return modelMapper.map(answer,AnswerResponse.class);
+    }
 
 
 }
