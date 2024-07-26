@@ -10,4 +10,7 @@ import java.util.List;
 
 public interface FoodService {
     List<FoodResponse> createFoodForUser(Long userId, List<FoodSelectionDto> foodSelectionDtoList)throws UserNotFoundException;
+
+
+    FoodResponse deleteFoodForUser(Long userId, Long foodId)throws UserNotFoundException,FoodDetailsNotFoundException;
 }

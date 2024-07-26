@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,4 +48,14 @@ public class FoodController {
         // Return the response entity with the list of FoodResponse and HTTP status CREATED
         return new ResponseEntity<>(foodResponseList, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/users/{user_id}/foods/{food_id}")
+    public ResponseEntity<FoodResponse> deleteFoodForUser(
+            @PathVariable("user_id") Long userId,
+            @PathVariable("food_id") Long foodId) throws UserNotFoundException, FoodDetailsNotFoundException {
+
+        FoodResponse foodResponse = foodService.deleteFoodForUser(userId, foodId);
+        return new ResponseEntity<>(foodResponse,HttpStatus.ACCEPTED);
+    }
+
 }
