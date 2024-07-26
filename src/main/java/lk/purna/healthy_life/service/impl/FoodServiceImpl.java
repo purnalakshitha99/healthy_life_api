@@ -73,5 +73,29 @@ public class FoodServiceImpl implements FoodService {
         userRepository.save(user);
         return responses;
     }
+
+    @Override
+    public FoodResponse deleteFoodForUser(Long userId, Long foodId) throws UserNotFoundException, FoodDetailsNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        Food food = foodRepository.findById(foodId).orElseThrow(
+                ()-> new FoodDetailsNotFoundException("that food details not in a db")
+        );
+
+        if (!user.getFoodList().contains(food)) {
+            throw new FoodDetailsNotFoundException("Food does not belong to the user");
+        }
+
+        user.getFoodList().remove(food);
+        userRepository.save(user);
+        foodRepository.delete(food);
+
+
+    return modelMapper.map(food,FoodResponse.class);
+
+    }
 }
 
