@@ -26,4 +26,7 @@ public class User {
     @JoinTable(name = "user_exercise",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "exercise_id"))
     @ManyToMany
     private List<Exercise> exerciseList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user")
+    private Answer answer;
 }
