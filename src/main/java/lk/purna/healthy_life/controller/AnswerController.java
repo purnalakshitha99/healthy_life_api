@@ -50,12 +50,23 @@ public class AnswerController {
     }
 
     @PutMapping("/users/{user_id}/answers")
-    public ResponseEntity<AnswerResponse> updateSpecificUserAnswer(@PathVariable("user_id")Long userId,AnswerRq answerRq)throws UserNotFoundException,AnswerNotFoundException{
+    public ResponseEntity<AnswerResponse> updateSpecificUserAnswer(@PathVariable("user_id")Long userId,@RequestBody AnswerRq answerRq)throws UserNotFoundException,AnswerNotFoundException{
 
         AnswerDto answerDto = modelMapper.map(answerRq,AnswerDto.class);
         AnswerResponse answerResponse = answerService.updateSpecificUserAnswer(userId,answerDto);
 
+
         return new ResponseEntity<>(answerResponse,HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/users/{user_id}/answers")
+    public ResponseEntity<AnswerResponse> deleteSpecificUserAnswer(@PathVariable("user_id")Long userId)throws UserNotFoundException,AnswerNotFoundException{
+
+        AnswerResponse answerResponse = answerService.deleteSpecificUserAnswer(userId);
+
+        return new ResponseEntity<>(answerResponse,HttpStatus.ACCEPTED);
+    }
+
+
 
 }
