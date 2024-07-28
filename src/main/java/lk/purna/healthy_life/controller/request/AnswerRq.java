@@ -14,7 +14,7 @@ public class AnswerRq {
     private Integer age;
     private Float height;
     private Float weight;
-    private String activityLevel;
+    private String activityLevelType;
     private Float goalWeight;
     private String gymStatus;
 }

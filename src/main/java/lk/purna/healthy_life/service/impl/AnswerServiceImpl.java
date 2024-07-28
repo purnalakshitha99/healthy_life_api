@@ -89,7 +89,7 @@ public class AnswerServiceImpl implements AnswerService {
 
         answer = answerRepository.save(answer);
 
-        System.out.println("level" +answer.getActivityLevel());
+        System.out.println("level" +answer.getActivityLevelType());
         System.out.println("age"+answer.getAge());
         System.out.println("weight"+answer.getGoalWeight());
         System.out.println("gym"+answer.getGymStatus());
