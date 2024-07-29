@@ -20,4 +20,16 @@ public class AppControllerAdviser {
         return customErrorResponse;
 
     }
+
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    @ExceptionHandler(DateException.class)
+    public CustomErrorResponse duplicateDateException(Exception exception) {
+
+        CustomErrorResponse customErrorResponse = new CustomErrorResponse();
+
+        customErrorResponse.setMessage(exception.getMessage());
+
+        return customErrorResponse;
+
+    }
 }
