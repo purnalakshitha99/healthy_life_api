@@ -32,4 +32,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<WeightLevel> weightLevel;
+
+    @OneToMany(mappedBy = "user")
+    private List<WaterLevel> waterLevelList;
 }
