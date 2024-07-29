@@ -29,4 +29,7 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Answer answer;
+
+    @OneToMany(mappedBy = "user")
+    private List<WeightLevel> weightLevel;
 }
