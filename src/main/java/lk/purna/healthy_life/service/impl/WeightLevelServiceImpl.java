@@ -5,6 +5,7 @@ import lk.purna.healthy_life.controller.response.WeightLevelResponse;
 import lk.purna.healthy_life.exception.DateException;
 import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
+import lk.purna.healthy_life.exception.WeightLevelNotFoundException;
 import lk.purna.healthy_life.model.User;
 import lk.purna.healthy_life.model.WeightLevel;
 import lk.purna.healthy_life.repository.AnswerRepository;
@@ -16,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,5 +68,22 @@ public class WeightLevelServiceImpl implements WeightLevelService {
         }
 
         return modelMapper.map(weightLevel,WeightLevelResponse.class);
+    }
+
+    @Override
+    public List<WeightLevelResponse> getSpecificUserWeightLevels(Long userId) throws UserNotFoundException, WeightLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("that user not in a db")
+        );
+
+       List <WeightLevel> weightLevelList = user.getWeightLevel();
+
+       if (weightLevelList.isEmpty()){
+
+           throw new WeightLevelNotFoundException("weight levels are empty");
+       }
+
+       return weightLevelList.stream().map(weightLevel -> modelMapper.map(weightLevel,WeightLevelResponse.class)).toList();
     }
 }
