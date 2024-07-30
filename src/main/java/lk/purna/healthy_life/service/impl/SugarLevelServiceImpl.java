@@ -45,9 +45,13 @@ public class SugarLevelServiceImpl implements SugarLevelService {
         sugarLevel.setTime(LocalTime.now().withNano(0));
         sugarLevel.setUser(user);
 
+
         sugarLevelRepository.save(sugarLevel);
 
-        return modelMapper.map(sugarLevel,SugarLevelResponse.class);
+       SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
+         sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
+
+         return sugarLevelResponse;
     }
 
     @Override
@@ -79,7 +83,31 @@ public class SugarLevelServiceImpl implements SugarLevelService {
             throw new SugarLevelNotFoundException("That SugarLevels is Empty");
         }
 
-      return modelMapper.map(sugarLevel,SugarLevelResponse.class);
+        SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
+        sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
+
+        return sugarLevelResponse;
+
+    }
+
+    @Override
+    public SugarLevelResponse DeleteUserSugarLevelBySpecificDate(Long userId, LocalDate date) throws UserNotFoundException, SugarLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        SugarLevel sugarLevel = sugarLevelRepository.findSugarLevelByUserIdAndDate(userId,date);
+
+        if (sugarLevel == null){
+            throw new SugarLevelNotFoundException("That SugarLevels is Empty");
+        }
+
+        sugarLevelRepository.delete(sugarLevel);
+        SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
+        sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
+
+        return sugarLevelResponse;
 
     }
 

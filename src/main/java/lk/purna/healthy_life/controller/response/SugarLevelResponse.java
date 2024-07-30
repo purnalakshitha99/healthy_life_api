@@ -12,4 +12,6 @@ public class SugarLevelResponse {
     private Float newSugarLevel;
     private LocalDate date;
     private LocalTime time;
+
+    private Long userId;
 }

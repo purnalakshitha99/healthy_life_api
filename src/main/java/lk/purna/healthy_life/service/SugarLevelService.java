@@ -16,4 +16,6 @@ public interface SugarLevelService {
     List<SugarLevelResponse> getSpecificUserSugarLevels(Long userId)throws UserNotFoundException, SugarLevelNotFoundException;
 
     SugarLevelResponse getUserSugarLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException, SugarLevelNotFoundException;
+
+    SugarLevelResponse DeleteUserSugarLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException,SugarLevelNotFoundException;
 }

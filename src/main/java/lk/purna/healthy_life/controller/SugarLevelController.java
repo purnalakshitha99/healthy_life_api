@@ -53,4 +53,12 @@ public class SugarLevelController {
 
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.FOUND);
     }
+
+    @DeleteMapping("/users/{user_id}/sugar_levels/date")
+    public ResponseEntity<SugarLevelResponse> DeleteUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, SugarLevelNotFoundException {
+
+        SugarLevelResponse sugarLevelResponse = sugarLevelService.DeleteUserSugarLevelBySpecificDate(userId,date);
+
+        return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
+    }
 }
