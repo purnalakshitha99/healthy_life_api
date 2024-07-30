@@ -4,15 +4,16 @@ import lk.purna.healthy_life.controller.dto.WaterLevelDto;
 import lk.purna.healthy_life.controller.request.WaterLevelRq;
 import lk.purna.healthy_life.controller.response.WaterLevelResponse;
 import lk.purna.healthy_life.exception.UserNotFoundException;
+import lk.purna.healthy_life.exception.WaterLevelNotFoundException;
 import lk.purna.healthy_life.service.WaterLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -29,4 +30,16 @@ public class WaterLevelController {
 
         return new ResponseEntity<>(waterLevelResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping("/users/{user_id}/water_levels")
+    public List<ResponseEntity<List<WaterLevelResponse>>> getSpecificUserWaterLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, WaterLevelNotFoundException {
+
+        List <WaterLevelResponse> waterLevelResponseList = waterLevelService.getSpecificUserWaterLevels(userId);
+
+        return Collections.singletonList(new ResponseEntity<>(waterLevelResponseList,HttpStatus.FOUND));
+    }
+
+
+
+
 }

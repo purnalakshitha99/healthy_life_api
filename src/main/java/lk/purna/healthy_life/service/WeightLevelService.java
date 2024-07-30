@@ -16,4 +16,6 @@ public interface WeightLevelService {
     WeightLevelResponse getSpecificDateWeightLevel(Long userId, LocalDate date)throws UserNotFoundException, DateNotFoundException;
 
     List<WeightLevelResponse> getSpecificUserWeightLevels(Long userId)throws UserNotFoundException, WeightLevelNotFoundException;
+
+    Float getLatestWeightByUserId(Long userId)throws UserNotFoundException,WeightLevelNotFoundException;
 }
