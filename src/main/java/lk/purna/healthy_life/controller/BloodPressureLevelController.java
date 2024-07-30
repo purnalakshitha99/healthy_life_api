@@ -53,14 +53,14 @@ public class BloodPressureLevelController {
 
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.FOUND);
     }
-//
-//    @DeleteMapping("/users/{user_id}/cholesterol_levels/date")
-//    public ResponseEntity<CholesterolLevelResponse> DeleteUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, CholesterolLevelNotFoundException {
-//
-//        CholesterolLevelResponse cholesterolLevelResponse = cholesterolLevelService.DeleteUserCholesterolLevelBySpecificDate(userId,date);
-//
-//        return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.ACCEPTED);
-//    }
+
+    @DeleteMapping("/users/{user_id}/blood_pressure_levels/date")
+    public ResponseEntity<BloodPressureLevelResponse> DeleteUserBloodPressureLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, BloodPressureLevelNotFoundException {
+
+        BloodPressureLevelResponse bloodPressureLevelResponse = bloodPressureLevelService.DeleteUserBloodPressureLevelBySpecificDate(userId,date);
+
+        return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
+    }
 //
 //
 //    @PutMapping("/users/{user_id}/cholesterol_levels/date")
