@@ -122,4 +122,10 @@ public class BloodPressureLevelServiceImpl implements BloodPressureLevelService 
 
         return modelMapper.map(bloodPressureLevelResults,BloodPressureLevelResponse.class);
     }
+
+    @Override
+    public void deleteAll() {
+
+        bloodPressureLevelRepository.deleteAll();
+    }
 }

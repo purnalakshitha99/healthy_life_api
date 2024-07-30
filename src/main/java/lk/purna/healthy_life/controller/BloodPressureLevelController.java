@@ -72,11 +72,10 @@ public class BloodPressureLevelController {
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
 
     }
-//
-//
-//    @DeleteMapping("/users/cholesterol_levels")
-//    public void deleteAll(){
-//
-//        cholesterolLevelRepository.deleteAll();
-//    }
+
+    @DeleteMapping("/users/blood_pressure_levels")
+    public void deleteAll(){
+
+        bloodPressureLevelService.deleteAll();
+    }
 }
