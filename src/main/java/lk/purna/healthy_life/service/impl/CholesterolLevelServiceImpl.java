@@ -4,7 +4,9 @@ import lk.purna.healthy_life.controller.dto.CholesterolLevelDto;
 import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
+import lk.purna.healthy_life.exception.CholesterolLevelNotFoundException;
 import lk.purna.healthy_life.exception.DateNotFoundException;
+import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.model.CholesterolLevel;
 import lk.purna.healthy_life.model.SugarLevel;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -39,7 +42,7 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         CholesterolLevel cholesterolLevelResults = cholesterolLevelRepository.findCholesterolLevelByUserIdAndDate(userId,currentDate);
 
         if (!(cholesterolLevelResults == null)){
-            throw new DateNotFoundException("That date All Ready Have Sugar Level");
+            throw new DateNotFoundException("That date All Ready Have Cholesterol Level");
         }
 
         CholesterolLevel cholesterolLevel  = modelMapper.map(cholesterolLevelDto, CholesterolLevel.class);
@@ -54,5 +57,21 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
 
         return cholesterolLevelResponse;
+    }
+
+    @Override
+    public List<CholesterolLevelResponse> getSpecificUserCholesterolLevels(Long userId) throws UserNotFoundException, CholesterolLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+       List <CholesterolLevel> cholesterolLevelList = user.getCholesterolLevelList();
+        if (cholesterolLevelList == null){
+            throw new CholesterolLevelNotFoundException("That Cholesterol level is Empty");
+        }
+
+        return cholesterolLevelList.stream().map(cholesterolLevel -> modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class)).toList();
+
     }
 }
