@@ -129,4 +129,9 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         return modelMapper.map(cholesterolLevelResults,CholesterolLevelResponse.class);
 
     }
+
+    public void deleteAll(){
+
+        cholesterolLevelRepository.deleteAll();
+    }
 }

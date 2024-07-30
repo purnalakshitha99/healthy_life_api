@@ -19,4 +19,6 @@ public interface CholesterolLevelService {
     CholesterolLevelResponse DeleteUserCholesterolLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException,CholesterolLevelNotFoundException;
 
     CholesterolLevelResponse UpdateUserCholesterolLevelBySpecificDate(Long userId, LocalDate date, CholesterolLevelDto cholesterolLevelDto)throws UserNotFoundException,CholesterolLevelNotFoundException;
+
+    void deleteAll();
 }

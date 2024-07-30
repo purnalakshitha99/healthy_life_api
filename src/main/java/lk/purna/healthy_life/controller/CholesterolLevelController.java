@@ -10,6 +10,7 @@ import lk.purna.healthy_life.exception.CholesterolLevelNotFoundException;
 import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
+import lk.purna.healthy_life.repository.CholesterolLevelRepository;
 import lk.purna.healthy_life.service.CholesterolLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CholesterolLevelController {
 
+    private final CholesterolLevelRepository cholesterolLevelRepository;
     private ModelMapper modelMapper;
     private CholesterolLevelService cholesterolLevelService;
 
@@ -73,5 +75,12 @@ public class CholesterolLevelController {
 
         return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.ACCEPTED);
 
+    }
+
+
+    @DeleteMapping("/users/cholesterol_levels")
+    public void deleteAll(){
+
+        cholesterolLevelRepository.deleteAll();
     }
 }
