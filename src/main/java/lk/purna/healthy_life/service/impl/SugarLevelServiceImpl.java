@@ -2,7 +2,7 @@ package lk.purna.healthy_life.service.impl;
 
 import lk.purna.healthy_life.controller.dto.SugarLevelDto;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
-import lk.purna.healthy_life.controller.response.UserResponse;
+import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.model.SugarLevel;
@@ -26,11 +26,19 @@ public class SugarLevelServiceImpl implements SugarLevelService {
     private final SugarLevelRepository sugarLevelRepository;
     private final ModelMapper modelMapper;
     @Override
-    public SugarLevelResponse addSugarLevelByUser(Long userId, SugarLevelDto sugarLevelDto) throws UserNotFoundException {
+    public SugarLevelResponse addSugarLevelByUser(Long userId, SugarLevelDto sugarLevelDto) throws UserNotFoundException,DateNotFoundException {
 
         User user = userRepository.findById(userId).orElseThrow(
                 ()-> new UserNotFoundException("That user not in a db")
         );
+
+        LocalDate currentDate = LocalDate.now();
+
+        SugarLevel sugarLevelResults = sugarLevelRepository.findSugarLevelByUserIdAndDate(userId,currentDate);
+
+        if (!(sugarLevelResults == null)){
+            throw new DateNotFoundException("That date All Ready Have Sugar Level");
+        }
 
         SugarLevel sugarLevel  = modelMapper.map(sugarLevelDto, SugarLevel.class);
         sugarLevel.setDate(LocalDate.now());
@@ -57,4 +65,23 @@ public class SugarLevelServiceImpl implements SugarLevelService {
 
         return sugarLevelList.stream().map(sugarLevel -> modelMapper.map(sugarLevel, SugarLevelResponse.class)).toList();
     }
+
+    @Override
+    public SugarLevelResponse getUserSugarLevelBySpecificDate(Long userId,LocalDate date) throws UserNotFoundException, SugarLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        SugarLevel sugarLevel = sugarLevelRepository.findSugarLevelByUserIdAndDate(userId,date);
+
+        if (sugarLevel == null){
+            throw new SugarLevelNotFoundException("That SugarLevels is Empty");
+        }
+
+      return modelMapper.map(sugarLevel,SugarLevelResponse.class);
+
+    }
+
+
 }

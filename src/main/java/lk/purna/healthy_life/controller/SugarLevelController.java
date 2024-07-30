@@ -3,16 +3,19 @@ package lk.purna.healthy_life.controller;
 import lk.purna.healthy_life.controller.dto.SugarLevelDto;
 import lk.purna.healthy_life.controller.request.SugarLevelRq;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
+import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.SugarLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class SugarLevelController {
 
 
     @PostMapping("/users/{user_id}/sugar_levels")
-    public ResponseEntity<SugarLevelResponse> addSugarLevelByUser(@PathVariable("user_id")Long userId, @RequestBody SugarLevelRq sugarLevelRq)throws UserNotFoundException {
+    public ResponseEntity<SugarLevelResponse> addSugarLevelByUser(@PathVariable("user_id")Long userId, @RequestBody SugarLevelRq sugarLevelRq)throws UserNotFoundException,DateNotFoundException {
 
         SugarLevelDto sugarLevelDto = modelMapper.map(sugarLevelRq, SugarLevelDto.class);
 
@@ -41,5 +44,13 @@ public class SugarLevelController {
         List<SugarLevelResponse> sugarLevelResponseList = sugarLevelService.getSpecificUserSugarLevels(userId);
 
         return Collections.singletonList(new ResponseEntity<>(sugarLevelResponseList, HttpStatus.FOUND));
+    }
+
+    @GetMapping("/users/{user_id}/sugar_levels/date")
+    public ResponseEntity<SugarLevelResponse> getUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, SugarLevelNotFoundException {
+
+        SugarLevelResponse sugarLevelResponse = sugarLevelService.getUserSugarLevelBySpecificDate(userId,date);
+
+        return new ResponseEntity<>(sugarLevelResponse,HttpStatus.FOUND);
     }
 }
