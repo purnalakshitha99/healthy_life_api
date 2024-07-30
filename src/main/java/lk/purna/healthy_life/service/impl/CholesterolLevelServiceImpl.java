@@ -1,6 +1,7 @@
 package lk.purna.healthy_life.service.impl;
 
 import lk.purna.healthy_life.controller.dto.CholesterolLevelDto;
+import lk.purna.healthy_life.controller.request.CholesterolLevelRq;
 import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
@@ -67,7 +68,8 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         );
 
        List <CholesterolLevel> cholesterolLevelList = user.getCholesterolLevelList();
-        if (cholesterolLevelList == null){
+
+        if (cholesterolLevelList.isEmpty()){
             throw new CholesterolLevelNotFoundException("That Cholesterol level is Empty");
         }
 
@@ -92,6 +94,47 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
 
         return cholesterolLevelResponse;
+
+    }
+
+    @Override
+    public CholesterolLevelResponse DeleteUserCholesterolLevelBySpecificDate(Long userId, LocalDate date) throws UserNotFoundException, CholesterolLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        CholesterolLevel cholesterolLevel = cholesterolLevelRepository.findCholesterolLevelByUserIdAndDate(userId,date);
+
+        if (cholesterolLevel == null){
+            throw new CholesterolLevelNotFoundException("That cholesterol levels is Empty");
+        }
+
+        cholesterolLevelRepository.delete(cholesterolLevel);
+        CholesterolLevelResponse cholesterolLevelResponse =  modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
+        cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
+
+        return cholesterolLevelResponse;
+
+    }
+
+    public CholesterolLevelResponse UpdateUserCholesterolLevelBySpecificDate(Long userId, LocalDate date, CholesterolLevelDto cholesterolLevelDto)throws UserNotFoundException,CholesterolLevelNotFoundException{
+
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user Not in a db")
+        );
+
+        CholesterolLevel cholesterolLevelResults = cholesterolLevelRepository.findCholesterolLevelByUserIdAndDate(userId,date);
+
+        if (cholesterolLevelResults == null){
+            throw new CholesterolLevelNotFoundException("Cholesterol levels are empty");
+        }
+
+        modelMapper.map(cholesterolLevelDto,cholesterolLevelResults);
+        cholesterolLevelRepository.save(cholesterolLevelResults);
+
+        return modelMapper.map(cholesterolLevelResults,CholesterolLevelResponse.class);
 
     }
 }

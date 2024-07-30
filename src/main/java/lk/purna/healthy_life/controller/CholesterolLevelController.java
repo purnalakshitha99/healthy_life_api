@@ -55,4 +55,23 @@ public class CholesterolLevelController {
 
         return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.FOUND);
     }
+
+    @DeleteMapping("/users/{user_id}/cholesterol_levels/date")
+    public ResponseEntity<CholesterolLevelResponse> DeleteUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, CholesterolLevelNotFoundException {
+
+        CholesterolLevelResponse cholesterolLevelResponse = cholesterolLevelService.DeleteUserCholesterolLevelBySpecificDate(userId,date);
+
+        return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.ACCEPTED);
+    }
+
+
+    @PutMapping("/users/{user_id}/cholesterol_levels/date")
+    public ResponseEntity<CholesterolLevelResponse> UpdateUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody CholesterolLevelRq cholesterolLevelRq)throws UserNotFoundException,CholesterolLevelNotFoundException{
+
+        CholesterolLevelDto cholesterolLevelDto = modelMapper.map(cholesterolLevelRq,CholesterolLevelDto.class);
+        CholesterolLevelResponse cholesterolLevelResponse = cholesterolLevelService.UpdateUserCholesterolLevelBySpecificDate(userId,date,cholesterolLevelDto);
+
+        return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.ACCEPTED);
+
+    }
 }
