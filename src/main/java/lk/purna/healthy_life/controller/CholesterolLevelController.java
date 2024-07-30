@@ -1,14 +1,10 @@
 package lk.purna.healthy_life.controller;
 
 import lk.purna.healthy_life.controller.dto.CholesterolLevelDto;
-import lk.purna.healthy_life.controller.dto.SugarLevelDto;
 import lk.purna.healthy_life.controller.request.CholesterolLevelRq;
-import lk.purna.healthy_life.controller.request.SugarLevelRq;
 import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
-import lk.purna.healthy_life.controller.response.SugarLevelResponse;
 import lk.purna.healthy_life.exception.CholesterolLevelNotFoundException;
 import lk.purna.healthy_life.exception.DateNotFoundException;
-import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.repository.CholesterolLevelRepository;
 import lk.purna.healthy_life.service.CholesterolLevelService;
