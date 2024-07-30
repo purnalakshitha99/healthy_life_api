@@ -61,4 +61,13 @@ public class SugarLevelController {
 
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
     }
+
+    @PutMapping("/users/{user_id}/sugar_levels/date")
+    public ResponseEntity<SugarLevelResponse> UpdateUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody SugarLevelRq sugarLevelRq)throws UserNotFoundException, SugarLevelNotFoundException {
+
+        SugarLevelDto sugarLevelDto = modelMapper.map(sugarLevelRq,SugarLevelDto.class);
+        SugarLevelResponse sugarLevelResponse = sugarLevelService.UpdateUserSugarLevelBySpecificDate(userId,date,sugarLevelDto);
+
+        return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
+    }
 }
