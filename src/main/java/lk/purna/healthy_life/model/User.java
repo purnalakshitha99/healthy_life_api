@@ -35,4 +35,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<WaterLevel> waterLevelList;
+
+    @OneToMany(mappedBy = "user")
+    private List<SugarLevel> sugarLevelList;
 }
