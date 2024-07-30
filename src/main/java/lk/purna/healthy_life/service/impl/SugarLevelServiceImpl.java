@@ -139,7 +139,6 @@ public class SugarLevelServiceImpl implements SugarLevelService {
     public void deleteAll() {
 
         sugarLevelRepository.deleteAll();
-
     }
 
 

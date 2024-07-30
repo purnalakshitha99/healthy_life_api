@@ -38,4 +38,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<SugarLevel> sugarLevelList;
+
+    @OneToMany(mappedBy = "user")
+    private List<CholesterolLevel> cholesterolLevelList;
 }
