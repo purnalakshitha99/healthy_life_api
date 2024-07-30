@@ -103,4 +103,23 @@ public class BloodPressureLevelServiceImpl implements BloodPressureLevelService 
 
         return modelMapper.map(bloodPressureLevel,BloodPressureLevelResponse.class);
     }
+
+    @Override
+    public BloodPressureLevelResponse UpdateUserBloodPressureLevelBySpecificDate(Long userId, LocalDate date, BloodPressureLevelDto bloodPressureLevelDto) throws UserNotFoundException, BloodPressureLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user Not in a db")
+        );
+
+        BloodPressureLevel bloodPressureLevelResults = bloodPressureLevelRepository.findBloodPressureLevelByUserIdAndDate(userId,date);
+
+        if (bloodPressureLevelResults == null){
+            throw new BloodPressureLevelNotFoundException("BloodPressure levels are empty");
+        }
+
+        modelMapper.map(bloodPressureLevelDto,bloodPressureLevelResults);
+        bloodPressureLevelRepository.save(bloodPressureLevelResults);
+
+        return modelMapper.map(bloodPressureLevelResults,BloodPressureLevelResponse.class);
+    }
 }

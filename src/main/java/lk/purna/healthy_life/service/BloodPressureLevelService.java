@@ -19,4 +19,6 @@ public interface BloodPressureLevelService {
     BloodPressureLevelResponse getUserBloodPressureLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException,BloodPressureLevelNotFoundException;
 
     BloodPressureLevelResponse DeleteUserBloodPressureLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException,BloodPressureLevelNotFoundException;
+
+    BloodPressureLevelResponse UpdateUserBloodPressureLevelBySpecificDate(Long userId, LocalDate date, BloodPressureLevelDto bloodPressureLevelDto)throws UserNotFoundException,BloodPressureLevelNotFoundException;
 }

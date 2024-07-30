@@ -61,17 +61,17 @@ public class BloodPressureLevelController {
 
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
     }
-//
-//
-//    @PutMapping("/users/{user_id}/cholesterol_levels/date")
-//    public ResponseEntity<CholesterolLevelResponse> UpdateUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody CholesterolLevelRq cholesterolLevelRq)throws UserNotFoundException,CholesterolLevelNotFoundException{
-//
-//        CholesterolLevelDto cholesterolLevelDto = modelMapper.map(cholesterolLevelRq,CholesterolLevelDto.class);
-//        CholesterolLevelResponse cholesterolLevelResponse = cholesterolLevelService.UpdateUserCholesterolLevelBySpecificDate(userId,date,cholesterolLevelDto);
-//
-//        return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.ACCEPTED);
-//
-//    }
+
+
+    @PutMapping("/users/{user_id}/blood_pressure_levels/date")
+    public ResponseEntity<BloodPressureLevelResponse> UpdateUserBloodPressureLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody BloodPressureLevelRq bloodPressureLevelRq)throws UserNotFoundException,BloodPressureLevelNotFoundException{
+
+        BloodPressureLevelDto bloodPressureLevelDto = modelMapper.map(bloodPressureLevelRq,BloodPressureLevelDto.class);
+        BloodPressureLevelResponse bloodPressureLevelResponse = bloodPressureLevelService.UpdateUserBloodPressureLevelBySpecificDate(userId,date,bloodPressureLevelDto);
+
+        return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
+
+    }
 //
 //
 //    @DeleteMapping("/users/cholesterol_levels")
