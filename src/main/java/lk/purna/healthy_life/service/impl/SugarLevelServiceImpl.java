@@ -3,6 +3,7 @@ package lk.purna.healthy_life.service.impl;
 import lk.purna.healthy_life.controller.dto.SugarLevelDto;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
+import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.model.SugarLevel;
 import lk.purna.healthy_life.model.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -38,5 +40,21 @@ public class SugarLevelServiceImpl implements SugarLevelService {
         sugarLevelRepository.save(sugarLevel);
 
         return modelMapper.map(sugarLevel,SugarLevelResponse.class);
+    }
+
+    @Override
+    public List<SugarLevelResponse> getSpecificUserSugarLevels(Long userId) throws UserNotFoundException, SugarLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        List<SugarLevel> sugarLevelList = user.getSugarLevelList();
+
+        if (sugarLevelList.isEmpty()){
+            throw new SugarLevelNotFoundException("Sugar level is empty");
+        }
+
+        return sugarLevelList.stream().map(sugarLevel -> modelMapper.map(sugarLevel, SugarLevelResponse.class)).toList();
     }
 }
