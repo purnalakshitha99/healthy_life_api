@@ -2,9 +2,11 @@ package lk.purna.healthy_life.controller;
 
 import lk.purna.healthy_life.controller.dto.WaterLevelDto;
 import lk.purna.healthy_life.controller.request.WaterLevelRq;
+import lk.purna.healthy_life.controller.response.DailyWaterIntakeResponse;
 import lk.purna.healthy_life.controller.response.WaterLevelResponse;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.exception.WaterLevelNotFoundException;
+import lk.purna.healthy_life.exception.WeightLevelNotFoundException;
 import lk.purna.healthy_life.service.WaterLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,6 +39,14 @@ public class WaterLevelController {
         List <WaterLevelResponse> waterLevelResponseList = waterLevelService.getSpecificUserWaterLevels(userId);
 
         return Collections.singletonList(new ResponseEntity<>(waterLevelResponseList,HttpStatus.FOUND));
+    }
+
+    @GetMapping("/users/{user_id}/daily_water_intakes")
+    public ResponseEntity<DailyWaterIntakeResponse> getDailyWaterIntakeByUser(@PathVariable("user_id")Long userId)throws UserNotFoundException, WeightLevelNotFoundException {
+
+        DailyWaterIntakeResponse dailyWaterIntakeResponse = waterLevelService.getDailyWaterIntakeByUser(userId);
+
+        return new ResponseEntity<>(dailyWaterIntakeResponse,HttpStatus.FOUND);
     }
 
 
