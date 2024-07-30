@@ -135,5 +135,12 @@ public class SugarLevelServiceImpl implements SugarLevelService {
 
     }
 
+    @Override
+    public void deleteAll() {
+
+        sugarLevelRepository.deleteAll();
+
+    }
+
 
 }

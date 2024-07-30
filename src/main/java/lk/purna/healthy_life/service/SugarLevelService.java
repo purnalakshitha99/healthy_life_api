@@ -20,4 +20,6 @@ public interface SugarLevelService {
     SugarLevelResponse DeleteUserSugarLevelBySpecificDate(Long userId, LocalDate date)throws UserNotFoundException,SugarLevelNotFoundException;
 
     SugarLevelResponse UpdateUserSugarLevelBySpecificDate(Long userId, LocalDate date, SugarLevelDto sugarLevelDto)throws UserNotFoundException,SugarLevelNotFoundException;
+
+    void deleteAll();
 }

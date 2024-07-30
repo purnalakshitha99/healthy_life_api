@@ -70,4 +70,12 @@ public class SugarLevelController {
 
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping("/users/sugar_levels")
+    public ResponseEntity<Void> deleteAll(){
+
+        sugarLevelService.deleteAll();
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
