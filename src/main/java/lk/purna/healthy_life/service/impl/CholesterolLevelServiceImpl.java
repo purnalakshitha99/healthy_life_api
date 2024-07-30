@@ -74,4 +74,24 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         return cholesterolLevelList.stream().map(cholesterolLevel -> modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class)).toList();
 
     }
+
+    @Override
+    public CholesterolLevelResponse getUserCholesterolLevelBySpecificDate(Long userId, LocalDate date) throws UserNotFoundException, CholesterolLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("That user not in a db")
+        );
+
+        CholesterolLevel cholesterolLevel = cholesterolLevelRepository.findCholesterolLevelByUserIdAndDate(userId,date);
+
+        if (cholesterolLevel == null){
+            throw new CholesterolLevelNotFoundException("That Cholesterol level is Empty");
+        }
+
+        CholesterolLevelResponse cholesterolLevelResponse =  modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
+        cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
+
+        return cholesterolLevelResponse;
+
+    }
 }

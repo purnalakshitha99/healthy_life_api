@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,5 +46,13 @@ public class CholesterolLevelController {
         List<CholesterolLevelResponse> cholesterolLevelResponseList = cholesterolLevelService.getSpecificUserCholesterolLevels(userId);
 
         return Collections.singletonList(new ResponseEntity<>(cholesterolLevelResponseList, HttpStatus.FOUND));
+    }
+
+    @GetMapping("/users/{user_id}/cholesterol_levels/date")
+    public ResponseEntity<CholesterolLevelResponse> getUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, CholesterolLevelNotFoundException {
+
+        CholesterolLevelResponse cholesterolLevelResponse = cholesterolLevelService.getUserCholesterolLevelBySpecificDate(userId,date);
+
+        return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.FOUND);
     }
 }
