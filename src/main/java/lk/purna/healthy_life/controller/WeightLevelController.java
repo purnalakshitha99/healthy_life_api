@@ -56,4 +56,10 @@ public class WeightLevelController {
 
         return Collections.singletonList(new ResponseEntity<>(weightLevelResponselist, HttpStatus.FOUND));
     }
+
+    @GetMapping("/users/{user_id}/latest_weights")
+    public Float getLatestWeightByUserId(@PathVariable("user_id")Long userId)throws UserNotFoundException,WeightLevelNotFoundException{
+
+        return weightLevelService.getLatestWeightByUserId(userId);
+    }
 }

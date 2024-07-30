@@ -9,4 +9,7 @@ import java.time.LocalDate;
 public interface WeightLevelRepository extends JpaRepository<WeightLevel,Long> {
 
     WeightLevel findWeightLevelByDateAndUserId(LocalDate date,Long userId);
+
+    WeightLevel  findTopByUserIdOrderByDateDesc(Long userId);
+
 }

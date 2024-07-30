@@ -15,6 +15,8 @@ import lk.purna.healthy_life.service.WeightLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -86,4 +88,22 @@ public class WeightLevelServiceImpl implements WeightLevelService {
 
        return weightLevelList.stream().map(weightLevel -> modelMapper.map(weightLevel,WeightLevelResponse.class)).toList();
     }
+
+    @Override
+    public Float getLatestWeightByUserId(Long userId) throws UserNotFoundException,WeightLevelNotFoundException {
+
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new UserNotFoundException("that user not in a db")
+        );
+
+        WeightLevel latestWeightLevel = weightLevelRepository.findTopByUserIdOrderByDateDesc(userId);
+
+        if (latestWeightLevel == null){
+            throw new WeightLevelNotFoundException("that weightLevel is empty");
+        };
+
+       return latestWeightLevel.getNewWeightLevel();
+    }
+
+
 }
