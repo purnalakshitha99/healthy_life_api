@@ -1,6 +1,7 @@
 package lk.purna.healthy_life.service.impl;
 
 import lk.purna.healthy_life.controller.dto.SugarLevelDto;
+import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
 import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.SugarLevelNotFoundException;
@@ -48,10 +49,7 @@ public class SugarLevelServiceImpl implements SugarLevelService {
 
         sugarLevelRepository.save(sugarLevel);
 
-       SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
-         sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
-
-         return sugarLevelResponse;
+        return modelMapper.map(sugarLevel, SugarLevelResponse.class);
     }
 
     @Override
@@ -83,10 +81,7 @@ public class SugarLevelServiceImpl implements SugarLevelService {
             throw new SugarLevelNotFoundException("That SugarLevels is Empty");
         }
 
-        SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
-        sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
-
-        return sugarLevelResponse;
+        return modelMapper.map(sugarLevel, SugarLevelResponse.class);
 
     }
 
@@ -104,10 +99,8 @@ public class SugarLevelServiceImpl implements SugarLevelService {
         }
 
         sugarLevelRepository.delete(sugarLevel);
-        SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
-        sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
 
-        return sugarLevelResponse;
+        return modelMapper.map(sugarLevel, SugarLevelResponse.class);
 
     }
 
@@ -127,10 +120,7 @@ public class SugarLevelServiceImpl implements SugarLevelService {
         modelMapper.map(sugarLevelDto,sugarLevel);
         sugarLevelRepository.save(sugarLevel);
 
-        SugarLevelResponse sugarLevelResponse =  modelMapper.map(sugarLevel,SugarLevelResponse.class);
-        sugarLevelResponse.setUserId(sugarLevel.getUser().getId());
-
-        return sugarLevelResponse;
+        return modelMapper.map(sugarLevel, SugarLevelResponse.class);
 
 
     }

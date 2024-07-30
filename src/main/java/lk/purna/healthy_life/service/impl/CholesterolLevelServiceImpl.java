@@ -54,10 +54,7 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
 
         cholesterolLevelRepository.save(cholesterolLevel);
 
-        CholesterolLevelResponse cholesterolLevelResponse =  modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
-        cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
-
-        return cholesterolLevelResponse;
+        return modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
     }
 
     @Override
@@ -90,10 +87,7 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
             throw new CholesterolLevelNotFoundException("That Cholesterol level is Empty");
         }
 
-        CholesterolLevelResponse cholesterolLevelResponse =  modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
-        cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
-
-        return cholesterolLevelResponse;
+        return modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
 
     }
 
@@ -111,10 +105,8 @@ public class CholesterolLevelServiceImpl implements CholesterolLevelService {
         }
 
         cholesterolLevelRepository.delete(cholesterolLevel);
-        CholesterolLevelResponse cholesterolLevelResponse =  modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
-        cholesterolLevelResponse.setUserId(cholesterolLevel.getUser().getId());
 
-        return cholesterolLevelResponse;
+        return modelMapper.map(cholesterolLevel,CholesterolLevelResponse.class);
 
     }
 
