@@ -7,4 +7,5 @@ public class ActivityLevelDto {
 
     private String activityLevelType;
     private Float level;
+    
 }

@@ -22,6 +22,7 @@ public class Answer {
     private Float goalWeight;
     private String gymStatus;
 
+
     @OneToOne
     private User user;
 }
