@@ -9,7 +9,6 @@ import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.SugarLevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

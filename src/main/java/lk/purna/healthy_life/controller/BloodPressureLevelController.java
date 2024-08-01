@@ -1,13 +1,9 @@
 package lk.purna.healthy_life.controller;
 
 import lk.purna.healthy_life.controller.dto.BloodPressureLevelDto;
-import lk.purna.healthy_life.controller.dto.CholesterolLevelDto;
 import lk.purna.healthy_life.controller.request.BloodPressureLevelRq;
-import lk.purna.healthy_life.controller.request.CholesterolLevelRq;
 import lk.purna.healthy_life.controller.response.BloodPressureLevelResponse;
-import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
 import lk.purna.healthy_life.exception.BloodPressureLevelNotFoundException;
-import lk.purna.healthy_life.exception.CholesterolLevelNotFoundException;
 import lk.purna.healthy_life.exception.DateNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.BloodPressureLevelService;
