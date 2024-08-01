@@ -3,7 +3,6 @@ package lk.purna.healthy_life.controller;
 import lk.purna.healthy_life.controller.dto.AnswerDto;
 import lk.purna.healthy_life.controller.request.AnswerRq;
 import lk.purna.healthy_life.controller.response.AnswerResponse;
-import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.exception.AnswerNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.AnswerService;

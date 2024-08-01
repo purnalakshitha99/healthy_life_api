@@ -1,10 +1,8 @@
 package lk.purna.healthy_life.controller;
 
 
-import lk.purna.healthy_life.controller.dto.ExerciseDetailsDto;
 import lk.purna.healthy_life.controller.dto.ExerciseDto;
 import lk.purna.healthy_life.controller.request.ExerciseRq;
-import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
 import lk.purna.healthy_life.controller.response.ExerciseResponse;
 import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;

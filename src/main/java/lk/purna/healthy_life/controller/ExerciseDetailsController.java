@@ -5,7 +5,6 @@ import lk.purna.healthy_life.controller.request.ExerciseDetailsRq;
 import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
 import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
 import lk.purna.healthy_life.service.ExerciseDetailsService;
-import lk.purna.healthy_life.service.FoodDetailsService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

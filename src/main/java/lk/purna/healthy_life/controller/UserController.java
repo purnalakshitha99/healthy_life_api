@@ -1,14 +1,8 @@
 package lk.purna.healthy_life.controller;
 
-import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
 import lk.purna.healthy_life.controller.dto.UserDto;
-import lk.purna.healthy_life.controller.request.FoodDetailsRq;
 import lk.purna.healthy_life.controller.request.UserRq;
-import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
-import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
 import lk.purna.healthy_life.controller.response.UserResponse;
-import lk.purna.healthy_life.exception.ExerciseDetailsNotFoundException;
-import lk.purna.healthy_life.exception.FoodDetailsNotFoundException;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.UserService;
 import lombok.AllArgsConstructor;
