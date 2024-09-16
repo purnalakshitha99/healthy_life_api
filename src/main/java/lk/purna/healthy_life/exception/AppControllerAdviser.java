@@ -32,4 +32,15 @@ public class AppControllerAdviser {
         return customErrorResponse;
 
     }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public CustomErrorResponse handleRunTimeException(RuntimeException exception) {
+
+        CustomErrorResponse customErrorResponse = new CustomErrorResponse();
+
+        customErrorResponse.setMessage(exception.getMessage());
+
+        return customErrorResponse;
+
+    }
 }
