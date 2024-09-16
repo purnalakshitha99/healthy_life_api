@@ -14,6 +14,7 @@ import lk.purna.healthy_life.repository.UserRepository;
 import lk.purna.healthy_life.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse createUser(UserDto userDto) {
 
         User user = modelMapper.map(userDto,User.class);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
 
         userRepository.save(user);
 

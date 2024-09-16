@@ -22,11 +22,14 @@ public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRq userRq){
 
+
+        System.out.println("roleeeeeeeeeeeeeeeeeee :"+userRq.getRoles());
         UserDto userDto = modelMapper.map(userRq,UserDto.class);
         UserResponse userResponse = userService.createUser(userDto);
+
 
         return ResponseEntity.created(URI.create("users")).body(userResponse);
     }
