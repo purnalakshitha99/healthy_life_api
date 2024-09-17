@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.ActivityLevelDto;
 import lk.purna.healthy_life.controller.request.ActivityLevelRq;
 import lk.purna.healthy_life.controller.response.ActivityLevelResponse;
@@ -25,6 +26,7 @@ public class ActivityLevelController {
     private final ActivityLevelService activityLevelService;
     private final ModelMapper modelMapper;
 
+    @RolesAllowed("ADMIN")
     @PostMapping("/activity_levels")
     public ActivityLevelResponse createActivityLevel(@RequestBody ActivityLevelRq activityLevelRq) {
 
@@ -33,6 +35,7 @@ public class ActivityLevelController {
         return activityLevelService.createActivityLevel(activityLevelDto);
     }
 
+    @RolesAllowed("ADMIN")
     @GetMapping("/activity_levels")
     public List<ResponseEntity<List<ActivityLevelResponse>>> getAllActivityLevel()throws ActivityLevelNotFoundException {
 

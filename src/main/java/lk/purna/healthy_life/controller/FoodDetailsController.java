@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.FoodDetailsDto;
 import lk.purna.healthy_life.controller.request.FoodDetailsRq;
 import lk.purna.healthy_life.controller.response.FoodDetailsResponse;
@@ -24,6 +25,7 @@ public class FoodDetailsController {
     private final ModelMapper modelMapper;
     private FoodDetailsService foodDetailsService;
 
+    @RolesAllowed("ADMIN")
     @PostMapping("/food_details")
     public ResponseEntity<FoodDetailsResponse> createFoodDetails(@RequestBody FoodDetailsRq foodDetailsRq) {
 
