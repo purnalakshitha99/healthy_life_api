@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.ExerciseDetailsDto;
 import lk.purna.healthy_life.controller.request.ExerciseDetailsRq;
 import lk.purna.healthy_life.controller.response.ExerciseDetailsResponse;
@@ -22,6 +23,7 @@ public class ExerciseDetailsController {
     private final ExerciseDetailsService exerciseDetailsService;
     private final ModelMapper modelMapper;
 
+    @RolesAllowed("ADMIN")
     @PostMapping("/exercise_details")
     public ResponseEntity<ExerciseDetailsResponse> createExerciseDetails(@RequestBody ExerciseDetailsRq exerciseDetailsRq){
 
@@ -33,6 +35,7 @@ public class ExerciseDetailsController {
         return  ResponseEntity.created(URI.create("/exercise_details")).body(exerciseDetailsResponse);
     }
 
+    @RolesAllowed({"ADMIN","USER"})
     @GetMapping("/exercise_details/{exercise_details_id}")
     public ResponseEntity<ExerciseDetailsResponse> getSpecificExerciseDetails(@PathVariable("exercise_details_id")Long exerciseDetailsId)throws ExerciseDetailsNotFoundException{
 
@@ -41,6 +44,7 @@ public class ExerciseDetailsController {
         return new ResponseEntity<>(exerciseDetailsResponse, HttpStatus.FOUND);
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping("/exercise_details/{exercise_details_id}")
     public ResponseEntity<ExerciseDetailsResponse> updateSpecificExerciseDetails(@PathVariable("exercise_details_id")Long exerciseDetailsId,@RequestBody ExerciseDetailsRq exerciseDetailsRq)throws ExerciseDetailsNotFoundException{
 
@@ -50,6 +54,7 @@ public class ExerciseDetailsController {
         return new ResponseEntity<>(exerciseDetailsResponse,HttpStatus.CREATED);
     }
 
+    @RolesAllowed({"ADMIN","USER"})
     @GetMapping("/exercise_details")
     public List<ResponseEntity<ExerciseDetailsResponse>> getAllExerciseDetails() throws ExerciseDetailsNotFoundException {
         List<ExerciseDetailsResponse> exerciseDetailsResponseList = exerciseDetailsService.getAllExerciseDetails();
@@ -61,6 +66,7 @@ public class ExerciseDetailsController {
                 .collect(Collectors.toList());
     }
 
+    @RolesAllowed("ADMIN")
     @DeleteMapping("/exercise_details/{exercise_details_id}")
     public ResponseEntity<ExerciseDetailsResponse>  deleteSpecificExercise(@PathVariable("exercise_details_id")Long exerciseDetailsId)throws ExerciseDetailsNotFoundException{
 
