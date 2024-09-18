@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.FoodSelectionDto;
 import lk.purna.healthy_life.controller.request.FoodSelectionRq;
 import lk.purna.healthy_life.controller.response.FoodResponse;
@@ -23,6 +24,7 @@ public class FoodController {
     private ModelMapper modelMapper;
     private FoodService foodService;
 
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/foods")
     public ResponseEntity<List<FoodResponse>> createFoodForUser(
             @PathVariable("user_id") Long userId,
@@ -48,6 +50,7 @@ public class FoodController {
         return new ResponseEntity<>(foodResponseList, HttpStatus.CREATED);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/{user_id}/foods/{food_id}")
     public ResponseEntity<FoodResponse> deleteFoodForUser(
             @PathVariable("user_id") Long userId,

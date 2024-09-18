@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.SugarLevelDto;
 import lk.purna.healthy_life.controller.request.SugarLevelRq;
 import lk.purna.healthy_life.controller.response.SugarLevelResponse;
@@ -25,7 +26,7 @@ public class SugarLevelController {
     private ModelMapper modelMapper;
     private SugarLevelService sugarLevelService;
 
-
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/sugar_levels")
     public ResponseEntity<SugarLevelResponse> addSugarLevelByUser(@PathVariable("user_id")Long userId, @RequestBody SugarLevelRq sugarLevelRq)throws UserNotFoundException,DateNotFoundException {
 
@@ -37,6 +38,7 @@ public class SugarLevelController {
 
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/sugar_levels")
     public List<ResponseEntity<List<SugarLevelResponse>>> getSpecificUserSugarLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, SugarLevelNotFoundException{
 
@@ -45,6 +47,7 @@ public class SugarLevelController {
         return Collections.singletonList(new ResponseEntity<>(sugarLevelResponseList, HttpStatus.FOUND));
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/sugar_levels/date")
     public ResponseEntity<SugarLevelResponse> getUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, SugarLevelNotFoundException {
 
@@ -53,6 +56,7 @@ public class SugarLevelController {
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.FOUND);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/{user_id}/sugar_levels/date")
     public ResponseEntity<SugarLevelResponse> DeleteUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, SugarLevelNotFoundException {
 
@@ -61,6 +65,7 @@ public class SugarLevelController {
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @PutMapping("/users/{user_id}/sugar_levels/date")
     public ResponseEntity<SugarLevelResponse> UpdateUserSugarLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody SugarLevelRq sugarLevelRq)throws UserNotFoundException, SugarLevelNotFoundException {
 
@@ -70,6 +75,7 @@ public class SugarLevelController {
         return new ResponseEntity<>(sugarLevelResponse,HttpStatus.ACCEPTED);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/sugar_levels")
     public ResponseEntity<Void> deleteAll(){
 

@@ -1,6 +1,7 @@
 package lk.purna.healthy_life.controller;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.ExerciseDto;
 import lk.purna.healthy_life.controller.request.ExerciseRq;
 import lk.purna.healthy_life.controller.response.ExerciseResponse;
@@ -23,6 +24,7 @@ public class ExerciseController {
     private final ModelMapper modelMapper;
     private final ExerciseService exerciseService;
 
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/exercises")
     public ResponseEntity<ExerciseResponse> createExerciseForUser(@PathVariable("user_id")Long userId, @RequestBody ExerciseRq exerciseRq)throws UserNotFoundException, ExerciseDetailsNotFoundException {
         System.out.println("usr id   : "+userId);
