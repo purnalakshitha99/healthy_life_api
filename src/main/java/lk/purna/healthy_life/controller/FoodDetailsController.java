@@ -37,6 +37,7 @@ public class FoodDetailsController {
         return ResponseEntity.created(URI.create("/food_details")).body(foodDetailsResponse);
     }
 
+    @RolesAllowed({"ADMIN","USER"})
     @GetMapping("/food_details")
     public List<ResponseEntity<List<FoodDetailsResponse>>> getAllFoods()throws FoodDetailsNotFoundException {
 
@@ -46,6 +47,7 @@ public class FoodDetailsController {
       return Collections.singletonList(new ResponseEntity<>(foodDetailsResponseList, HttpStatus.FOUND));
     }
 
+    @RolesAllowed("ADMIN")
     @PutMapping("/food_details/{food_details_id}")
     public ResponseEntity<FoodDetailsResponse> updateFoodDetails(@PathVariable("food_details_id")Long foodDetailsId, @RequestBody FoodDetailsRq foodDetailsRq)throws FoodDetailsNotFoundException{
 
@@ -55,6 +57,7 @@ public class FoodDetailsController {
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.CREATED);
     }
 
+    @RolesAllowed({"ADMIN","USER"})
     @GetMapping("/food_details/{food_details_id}")
     public ResponseEntity<FoodDetailsResponse> getSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
 
@@ -63,6 +66,7 @@ public class FoodDetailsController {
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
     }
 
+    @RolesAllowed("ADMIN")
     @DeleteMapping("/food_details/{food_details_id}")
     public ResponseEntity<FoodDetailsResponse> deleteSpecificFoodDetails(@PathVariable("food_details_id")Long foodDetailsId)throws FoodDetailsNotFoundException{
 
@@ -71,10 +75,12 @@ public class FoodDetailsController {
         return new ResponseEntity<>(foodDetailsResponse,HttpStatus.FOUND);
     }
 
+    @RolesAllowed({"ADMIN","USER"})
     @GetMapping("/foods/search")
     public List<FoodDetails> searchFoodDetails(@RequestParam String query){
         String prefix = query.length() > 3 ? query.substring(0,3) : query;
         return foodDetailsService.searchFoodByPrefix(prefix);
     }
+
 
 }
