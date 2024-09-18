@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.WaterLevelDto;
 import lk.purna.healthy_life.controller.request.WaterLevelRq;
 import lk.purna.healthy_life.controller.response.DailyWaterIntakeResponse;
@@ -24,6 +25,7 @@ public class WaterLevelController {
     private ModelMapper modelMapper;
     private WaterLevelService waterLevelService;
 
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/water_levels")
     public ResponseEntity<WaterLevelResponse> createWaterLevelForUser(@PathVariable("user_id")Long userId, @RequestBody WaterLevelRq waterLevelRq)throws UserNotFoundException {
 
@@ -33,6 +35,7 @@ public class WaterLevelController {
         return new ResponseEntity<>(waterLevelResponse, HttpStatus.CREATED);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/water_levels")
     public List<ResponseEntity<List<WaterLevelResponse>>> getSpecificUserWaterLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, WaterLevelNotFoundException {
 
@@ -41,6 +44,7 @@ public class WaterLevelController {
         return Collections.singletonList(new ResponseEntity<>(waterLevelResponseList,HttpStatus.FOUND));
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/daily_water_intakes")
     public ResponseEntity<DailyWaterIntakeResponse> getDailyWaterIntakeByUser(@PathVariable("user_id")Long userId)throws UserNotFoundException, WeightLevelNotFoundException {
 

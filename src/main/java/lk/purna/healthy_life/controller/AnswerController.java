@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.AnswerDto;
 import lk.purna.healthy_life.controller.request.AnswerRq;
 import lk.purna.healthy_life.controller.response.AnswerResponse;
@@ -22,6 +23,8 @@ public class AnswerController {
     private ModelMapper modelMapper;
     private AnswerService answerService;
 
+//    @RolesAllowed({"ADMIN","USER"})
+    @RolesAllowed("USER")
     @PostMapping("/users/{user_id}/answers")
     public ResponseEntity<AnswerDto> createAnswerForUser(@PathVariable("user_id")Long userId, @RequestBody AnswerRq answerRq)throws AnswerNotFoundException {
 
@@ -32,6 +35,7 @@ public class AnswerController {
         return new ResponseEntity<>(answerDto, HttpStatus.CREATED);
     }
 
+    @RolesAllowed("USER")
     @GetMapping("/users/{user_id}/answers")
     public ResponseEntity<AnswerResponse> getSpecificUserAnswer(@PathVariable("user_id")Long userId)throws UserNotFoundException,AnswerNotFoundException {
 
@@ -40,6 +44,7 @@ public class AnswerController {
         return new ResponseEntity<>(answerResponse,HttpStatus.FOUND);
     }
 
+    @RolesAllowed("ADMIN")
     @GetMapping("/users/answers")
     public List<ResponseEntity<List<AnswerResponse>>> getAllAnswers()throws AnswerNotFoundException{
 

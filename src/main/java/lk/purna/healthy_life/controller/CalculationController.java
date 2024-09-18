@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.response.CalculationResponse;
 import lk.purna.healthy_life.exception.UserNotFoundException;
 import lk.purna.healthy_life.service.CalculationService;
@@ -14,7 +15,7 @@ public class CalculationController {
 
     private CalculationService calculationService;
 
-
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/calculation")
     public CalculationResponse calculateAdjustedCalories(@PathVariable("user_id")Long userId)throws UserNotFoundException {
         System.out.println("helooooooooooooooooooooooooooooooooooooo");

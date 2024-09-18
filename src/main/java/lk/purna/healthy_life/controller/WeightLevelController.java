@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.WeightLevelDto;
 import lk.purna.healthy_life.controller.request.WeightLevelRq;
 import lk.purna.healthy_life.controller.response.WeightLevelResponse;
@@ -25,6 +26,7 @@ public class WeightLevelController {
     private ModelMapper modelMapper;
     private WeightLevelService weightLevelService;
 
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/weight_levels")
     public ResponseEntity<WeightLevelResponse> createWeightForUser(@PathVariable("user_id")Long userId, @RequestBody WeightLevelRq weightLevelRq)throws UserNotFoundException, DateException{
 
@@ -35,6 +37,7 @@ public class WeightLevelController {
     }
 
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/weight_levels/date")
     public ResponseEntity<WeightLevelResponse> getSpecificDateWeightLevel(@PathVariable("user_id")Long userId,@RequestParam LocalDate date)throws DateNotFoundException,UserNotFoundException{
 
@@ -45,6 +48,7 @@ public class WeightLevelController {
 
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/weight_levels")
     public List<ResponseEntity<List<WeightLevelResponse>>> getSpecificUserWeightLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, WeightLevelNotFoundException {
 
@@ -53,6 +57,7 @@ public class WeightLevelController {
         return Collections.singletonList(new ResponseEntity<>(weightLevelResponselist, HttpStatus.FOUND));
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/latest_weights")
     public Float getLatestWeightByUserId(@PathVariable("user_id")Long userId)throws UserNotFoundException,WeightLevelNotFoundException{
 

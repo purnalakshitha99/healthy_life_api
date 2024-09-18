@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.CholesterolLevelDto;
 import lk.purna.healthy_life.controller.request.CholesterolLevelRq;
 import lk.purna.healthy_life.controller.response.CholesterolLevelResponse;
@@ -27,6 +28,7 @@ public class CholesterolLevelController {
     private ModelMapper modelMapper;
     private CholesterolLevelService cholesterolLevelService;
 
+    @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/users/{user_id}/cholesterol_levels")
     public ResponseEntity<CholesterolLevelResponse> addCholesterolLevelsByUser(@PathVariable("user_id")Long userId, @RequestBody CholesterolLevelRq cholesterolLevelRq)throws UserNotFoundException, DateNotFoundException {
 
@@ -38,6 +40,7 @@ public class CholesterolLevelController {
 
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/cholesterol_levels")
     public List<ResponseEntity<List<CholesterolLevelResponse>>> getSpecificUserCholesterolLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, CholesterolLevelNotFoundException {
 
@@ -46,6 +49,7 @@ public class CholesterolLevelController {
         return Collections.singletonList(new ResponseEntity<>(cholesterolLevelResponseList, HttpStatus.FOUND));
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/cholesterol_levels/date")
     public ResponseEntity<CholesterolLevelResponse> getUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, CholesterolLevelNotFoundException {
 
@@ -54,6 +58,7 @@ public class CholesterolLevelController {
         return new ResponseEntity<>(cholesterolLevelResponse,HttpStatus.FOUND);
     }
 
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/{user_id}/cholesterol_levels/date")
     public ResponseEntity<CholesterolLevelResponse> DeleteUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, CholesterolLevelNotFoundException {
 
@@ -63,6 +68,7 @@ public class CholesterolLevelController {
     }
 
 
+    @RolesAllowed({"USER","ADMIN"})
     @PutMapping("/users/{user_id}/cholesterol_levels/date")
     public ResponseEntity<CholesterolLevelResponse> UpdateUserCholesterolLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody CholesterolLevelRq cholesterolLevelRq)throws UserNotFoundException,CholesterolLevelNotFoundException{
 
@@ -73,7 +79,7 @@ public class CholesterolLevelController {
 
     }
 
-
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/cholesterol_levels")
     public void deleteAll(){
 

@@ -1,5 +1,6 @@
 package lk.purna.healthy_life.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lk.purna.healthy_life.controller.dto.BloodPressureLevelDto;
 import lk.purna.healthy_life.controller.request.BloodPressureLevelRq;
 import lk.purna.healthy_life.controller.response.BloodPressureLevelResponse;
@@ -25,6 +26,7 @@ public class BloodPressureLevelController {
     private ModelMapper modelMapper;
     private final BloodPressureLevelService bloodPressureLevelService;
 
+    @RolesAllowed("USER")
     @PostMapping("/users/{user_id}/blood_pressure_levels")
     public ResponseEntity<BloodPressureLevelResponse> addBloodPressureForUser(@PathVariable("user_id")Long userId, @RequestBody BloodPressureLevelRq bloodPressureLevelRq)throws UserNotFoundException, DateNotFoundException{
 
@@ -34,6 +36,7 @@ public class BloodPressureLevelController {
         return ResponseEntity.created(URI.create("/blood_pressure_levels")).body(bloodPressureLevelResponse);
     }
 
+    @RolesAllowed("USER")
     @GetMapping("/users/{user_id}/blood_pressure_levels")
     public List<ResponseEntity<List<BloodPressureLevelResponse>>> getSpecificUserBloodPressureLevels(@PathVariable("user_id")Long userId)throws UserNotFoundException, BloodPressureLevelNotFoundException {
 
@@ -49,7 +52,7 @@ public class BloodPressureLevelController {
 
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.FOUND);
     }
-
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/{user_id}/blood_pressure_levels/date")
     public ResponseEntity<BloodPressureLevelResponse> DeleteUserBloodPressureLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date)throws UserNotFoundException, BloodPressureLevelNotFoundException {
 
@@ -58,7 +61,7 @@ public class BloodPressureLevelController {
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
     }
 
-
+    @RolesAllowed({"USER","ADMIN"})
     @PutMapping("/users/{user_id}/blood_pressure_levels/date")
     public ResponseEntity<BloodPressureLevelResponse> UpdateUserBloodPressureLevelBySpecificDate(@PathVariable("user_id")Long userId, @RequestParam LocalDate date,@RequestBody BloodPressureLevelRq bloodPressureLevelRq)throws UserNotFoundException,BloodPressureLevelNotFoundException{
 
@@ -68,7 +71,7 @@ public class BloodPressureLevelController {
         return new ResponseEntity<>(bloodPressureLevelResponse,HttpStatus.ACCEPTED);
 
     }
-
+    @RolesAllowed({"USER","ADMIN"})
     @DeleteMapping("/users/blood_pressure_levels")
     public void deleteAll(){
 
