@@ -27,7 +27,7 @@ public class UserController {
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRq userRq){
 
 
-        System.out.println("roleeeeeeeeeeeeeeeeeee :"+userRq.getRoles());
+        System.out.println("role :"+userRq.getRoles());
         UserDto userDto = modelMapper.map(userRq,UserDto.class);
         UserResponse userResponse = userService.createUser(userDto);
 

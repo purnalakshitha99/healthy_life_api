@@ -18,7 +18,7 @@ public class CalculationController {
     @RolesAllowed({"USER","ADMIN"})
     @GetMapping("/users/{user_id}/calculation")
     public CalculationResponse calculateAdjustedCalories(@PathVariable("user_id")Long userId)throws UserNotFoundException {
-        System.out.println("helooooooooooooooooooooooooooooooooooooo");
+
       return calculationService.calculateAdjustedCalories(userId);
     }
 }

@@ -51,12 +51,11 @@ public class AuthController {
            user.setUsername(requestDTO.getUsername());
            System.out.println("password : "+user.getPassword());
            System.out.println("password req : "+requestDTO.getPassword());
-           System.out.println("roleeeeeeeeeeeeeeee"+user.getRoles());
-           System.out.println("usernameeee"+user.getUsername());
+           System.out.println("role"+user.getRoles());
+           System.out.println("username"+user.getUsername());
 
            // Check if the provided password matches the stored hashed password
            if (!passwordEncoder.matches(requestDTO.getPassword(), user.getPassword())) {
-               System.out.println("waradiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                throw new InvalidCredentialsException("Invalid credentials");
            }
 
@@ -96,8 +95,6 @@ public class AuthController {
     }
 
 
-//    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
-//    @RolesAllowed("ROLE_USER")
     @RolesAllowed({"USER","ADMIN"})
     @PostMapping("/user")
     public String sayHiUser(){
