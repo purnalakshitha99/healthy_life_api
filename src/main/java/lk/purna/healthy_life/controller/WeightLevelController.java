@@ -41,7 +41,6 @@ public class WeightLevelController {
     @GetMapping("/users/{user_id}/weight_levels/date")
     public ResponseEntity<WeightLevelResponse> getSpecificDateWeightLevel(@PathVariable("user_id")Long userId,@RequestParam LocalDate date)throws DateNotFoundException,UserNotFoundException{
 
-        System.out.println("halooo");
         WeightLevelResponse weightLevelResponse = weightLevelService.getSpecificDateWeightLevel(userId,date);
 
         return new ResponseEntity<>(weightLevelResponse,HttpStatus.FOUND);

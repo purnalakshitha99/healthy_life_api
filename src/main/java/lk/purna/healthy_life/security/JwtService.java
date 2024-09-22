@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 //token will be expired in 50 years
-//                .setExpiration(Date.from(ZonedDateTime.now().plusYears(50).toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusYears(50).toInstant()))
 //                .setExpiration(Date.from(Instant.from(LocalDate.of(2026, 10, 10))))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)  //password
                 .compact();
